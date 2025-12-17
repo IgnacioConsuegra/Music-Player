@@ -1,0 +1,146 @@
+[
+  {
+    "title": "El Amar y Querer",
+    "artist": "Jose Jose",
+    "url": "music/amarYQuerer.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Besame mucho",
+    "artist": "Luis Miguel",
+    "url": "music/besameMucho.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Expedition 33 osts",
+    "artist": "Dream Piano Ensemble",
+    "url": "music/clair.mp3",
+    "category": "Classical"
+  },
+  {
+    "title": "Let me love you",
+    "artist": "Justin Bieber",
+    "url": "music/letMeLoveYou.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Peaches",
+    "artist": "Justin Bieber",
+    "url": "music/peaches.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Stay",
+    "artist": "Justin Bieber",
+    "url": "music/theKid.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Die With a Smile",
+    "artist": "Bruno Mars",
+    "url": "music/dieWithASmile.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Training Season",
+    "artist": "Dua Lipa",
+    "url": "music/trainingSeason.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Eto",
+    "artist": "Haru Shizuka",
+    "url": "music/eto.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "alicia",
+    "artist": "Expedition33",
+    "url": "music/alicia.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "ex33Orquesta",
+    "artist": "Expedition33",
+    "url": "music/ex33Orquesta.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "Lumiere",
+    "artist": "Expedition33",
+    "url": "music/lumiere.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "thanatos",
+    "artist": "Evangelion",
+    "url": "music/thanatos.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "Skyfall",
+    "artist": "Adele",
+    "url": "music/skyfall.mp3",
+    "category": "Epic"
+  },
+  {
+    "title": "Waiting for love",
+    "artist": "Avicii",
+    "url": "music/waitingForLove.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Mean to be",
+    "artist": "Bbno$",
+    "url": "music/meantToBe.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "Paradise",
+    "artist": "Coldplay",
+    "url": "music/paradise.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "The Scientist",
+    "artist": "Coldplay",
+    "url": "music/theScientist.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "Yellow",
+    "artist": "Coldplay",
+    "url": "music/yellow.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "Fix You",
+    "artist": "Coldplay",
+    "url": "music/fixYou.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "Shape Of You",
+    "artist": "Ed Sheeran",
+    "url": "music/shapeOfYou.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "Until I found You",
+    "artist": "Stephen Sanchez",
+    "url": "music/untilIFoundYou.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "All of me",
+    "artist": "John Legend",
+    "url": "music/allOfMe.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Counting stars",
+    "artist": "One republic",
+    "url": "music/countingStars.mp3",
+    "category": "Romantic"
+  }  
+]
