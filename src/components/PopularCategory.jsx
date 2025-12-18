@@ -5,9 +5,9 @@ import { useRef } from "react";
 import { MusicPlayerContext } from "../context/MusicPlayerContext";
 import ClickableButton from "./ClickableButton";
 
-const PopularArtists = ({ artistList }) => {
+const PopularCategory = ({ categoryList, currentCategory }) => {
   const scrollRef = useRef(null);
-  const { handleChangeArtist, handleResetArtist, currentArtist } =
+  const { handleChangeCategory, handleResetCategory } =
     useContext(MusicPlayerContext);
   const scroll = direction => {
     if (scrollRef.current) {
@@ -25,9 +25,12 @@ const PopularArtists = ({ artistList }) => {
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="flex gap-2 text-xl font-bold">
-          Popular Artist{" "}
+          List of Categories{" "}
           <ClickableButton>
-            <RotateCcw className="cursor-pointer" onClick={handleResetArtist} />
+            <RotateCcw
+              className="cursor-pointer"
+              onClick={handleResetCategory}
+            />
           </ClickableButton>
         </h2>
         <button className="text-sm text-gray-400 hover:underline">
@@ -53,19 +56,20 @@ const PopularArtists = ({ artistList }) => {
         ref={scrollRef}
         className="flex flex-row overflow-x-auto gap-4 scroll-smooth no-scrollbar w-full md:overflow-x-hidden"
       >
-        {artistList.map((artist, index) => (
+        {categoryList.map((category, index) => (
           <ClickableButton key={index}>
+            {" "}
             <div
               className="flex-none w-32 md:w-40 text-center cursor-pointer group/item"
-              onClick={() => handleChangeArtist(artist)}
+              onClick={() => handleChangeCategory(category)}
             >
               <div className="relative mb-3">
                 <img
                   src={`https://m.media-amazon.com/images/M/MV5BYzFiNzVkMzQtNzljOS00NWUzLWI0YWYtZTllZjEwYTE1MjhmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg`}
-                  alt={artist}
+                  alt={category}
                   className={`w-full aspect-square object-cover rounded-full border-2 
                       ${
-                        artist === currentArtist
+                        category === currentCategory
                           ? "border-green-300"
                           : "border-transparent"
                       }
@@ -74,7 +78,7 @@ const PopularArtists = ({ artistList }) => {
                     transition-all duration-300`}
                 />
               </div>
-              <p className="text-sm font-medium truncate">{artist}</p>
+              <p className="text-sm font-medium truncate">{category}</p>
             </div>
           </ClickableButton>
         ))}
@@ -82,4 +86,4 @@ const PopularArtists = ({ artistList }) => {
     </section>
   );
 };
-export default PopularArtists;
+export default PopularCategory;

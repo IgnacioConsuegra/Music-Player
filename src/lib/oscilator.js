@@ -3,13 +3,14 @@ export class AudioPlayer {
   currentTime = 0;
   volume = 0.4;
 
-  constructor(audioEl, canvasEl) {
+  constructor(audioEl, canvasEl, setIsPlaying, handleSongFinished) {
     this.audio = audioEl;
     this.canvas = canvasEl;
     this.canvasCtx = canvasEl.getContext("2d");
-
+    this.setIsPlaying = setIsPlaying;
     this.initializeAudio();
     this.attachEvents();
+    this.handleSongFinished = handleSongFinished;
   }
 
   initializeAudio() {
@@ -81,7 +82,6 @@ export class AudioPlayer {
     const decay = 0.92;
     const copyOfDataArray = [...this.dataArray];
     const step = () => {
-      console.log("steps");
       let stillVisible = false;
 
       for (let i = 0; i < this.bufferLength; i++) {
@@ -117,10 +117,15 @@ export class AudioPlayer {
 
   attachEvents() {
     this.audio.addEventListener("ended", () => {
-      this.playing = false;
+      // this.playing = false;
+      this.audio.currentTime = 0;
+      this.setIsPlaying(false);
+      this.handleSongFinished();
     });
   }
-
+  changeTime(time) {
+    this.audio.currentTime += time;
+  }
   destroy() {
     this.audioCtx?.close();
   }

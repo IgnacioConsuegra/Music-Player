@@ -80,7 +80,7 @@
   {
     "title": "Skyfall",
     "artist": "Adele",
-    "url": "music/skyfall.mp3",
+    "url": "music/skyFall.mp3",
     "category": "Epic"
   },
   {
@@ -99,7 +99,7 @@
     "title": "Paradise",
     "artist": "Coldplay",
     "url": "music/paradise.mp3",
-    "category": "Lo-Fi"
+    "category": "Awesome"
   },
   {
     "title": "The Scientist",
@@ -111,13 +111,13 @@
     "title": "Yellow",
     "artist": "Coldplay",
     "url": "music/yellow.mp3",
-    "category": "Lo-Fi"
+    "category": "Romantic"
   },
   {
     "title": "Fix You",
     "artist": "Coldplay",
     "url": "music/fixYou.mp3",
-    "category": "Lo-Fi"
+    "category": "Epic"
   },
   {
     "title": "Shape Of You",
