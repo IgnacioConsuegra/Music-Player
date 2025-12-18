@@ -5,7 +5,7 @@ const SongItem = ({ artist, title, url }) => {
   const { handleSelectSong } = useContext(MusicPlayerContext);
   return (
     <div
-      onClick={() => handleSelectSong(url)}
+      onClick={() => handleSelectSong({ url, title, artist })}
       className="text-black bg-gray-100 cursor-pointer flex h-20 items-center border-2 rounded-2xl p-6 gap-3"
     >
       <div>
