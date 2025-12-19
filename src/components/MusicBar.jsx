@@ -56,9 +56,11 @@ function MusicBar() {
   };
   return (
     <div
-      className="fixed z-50 bottom-[5%] left-1/2 -translate-x-1/2 w-[95%] md:w-[60%] 
-    border-1 border-white rounded-2xl items-center bg-black p-4 
-    pointer-events-auto flex flex-row gap-4 md:h-14"
+      className={` ${
+        !currentSong ? "hidden" : "block"
+      } fixed z-50 bottom-[5%] left-1/2 -translate-x-1/2 w-[95%] md:w-[60%] 
+    border border-white rounded-2xl items-center bg-black p-4 
+    pointer-events-auto flex flex-row gap-4 md:h-14`}
     >
       <audio ref={audioRef} src={currentSong} />
       {/* <button onClick={handleIncrease}>Increase</button> */}

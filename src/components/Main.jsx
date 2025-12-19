@@ -14,7 +14,10 @@ const Main = () => {
     handleResetFilters,
   } = useContext(MusicPlayerContext);
   return (
-    <section className="bg-black min-h-screen text-white w-full  lg:w-full md:w-[70%] md:max-w-[70%]  md:border-2 border-yellow-white md:rounded-tl-[40px] md:rounded-bl-[40px] p-8 ">
+    <section
+      className={`bg-black min-h-screen text-white w-full 
+       lg:w-full md:w-[85%] md:max-w-[85%]  md:border-2 border-transparent md:rounded-tl-[40px] md:rounded-bl-[40px] p-8 py-30 `}
+    >
       {/* Popular playList section */}
       <section className="hidden md:block">
         <h1>Popular playList</h1>

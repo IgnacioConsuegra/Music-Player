@@ -87,12 +87,6 @@ export default function MusicPlayerProvider({ children }) {
       return;
     }
     setCurrentArtist(artistName);
-    let newList = listOfSongs.filter(({ artist }) => artist === artistName);
-    if (currentCategory !== "All") {
-      newList = newList.filter(({ category }) => category === currentCategory);
-    }
-    setCurrentListOfSongs(newList);
-    handleChangeCurrentListOfSongs(newList);
   };
   const handleChangeCategory = categoryName => {
     if (categoryName === currentCategory) {
@@ -103,12 +97,23 @@ export default function MusicPlayerProvider({ children }) {
     let newList = listOfSongs.filter(
       ({ category }) => category === categoryName
     );
+    setCurrentListOfSongs(newList);
+  };
+  const applyCurrentFilters = () => {
+    let newList = listOfSongs;
     if (currentArtist !== "All") {
-      newList = newList.filter(({ artist }) => artist === currentArtist);
+      newList = listOfSongs.filter(({ artist }) => artist === currentArtist);
+    }
+    if (currentCategory !== "All") {
+      newList = listOfSongs.filter(
+        ({ category }) => category === currentCategory
+      );
     }
     setCurrentListOfSongs(newList);
-    handleChangeCurrentListOfSongs(newList);
   };
+  useEffect(() => {
+    applyCurrentFilters();
+  }, [currentArtist, currentCategory]);
   const handleChangeCurrentListOfSongs = list => {
     const categoryList = getNewCategory(list);
     const artistList = getNewArtist(list);
