@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { MusicPlayerContext } from "../context/MusicPlayerContext";
+import { MusicPlayerContext } from "../../context/MusicPlayerContext.jsx";
 import { AudioLines, Plus } from "lucide-react";
 const SongItem = ({ artist, title, url }) => {
   const { handleSelectSong } = useContext(MusicPlayerContext);

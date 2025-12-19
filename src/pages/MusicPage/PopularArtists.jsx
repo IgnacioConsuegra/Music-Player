@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 
 import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 import { useRef } from "react";
-import { MusicPlayerContext } from "../context/MusicPlayerContext";
-import ClickableButton from "./ClickableButton";
+import { MusicPlayerContext } from "../../context/MusicPlayerContext";
+import ClickableButton from "../../components/ClickableButton.jsx";
 
 const PopularArtists = ({ artistList }) => {
   const scrollRef = useRef(null);

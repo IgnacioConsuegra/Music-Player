@@ -1,11 +1,8 @@
 import React from "react";
 
-import { useRef } from "react";
 import AsideButton from "./AsideButton";
-
-export default function VideoPlayer() {
-  const videoRef = useRef(null);
-
+import { Link } from "react-router-dom";
+const Aside = () => {
   return (
     <aside className="hidden md:flex w-52 text-neutral-400 p-4 md:w-[15%] md:max-w-[15%] py-8 flex-col gap-10">
       <div>
@@ -13,12 +10,16 @@ export default function VideoPlayer() {
 
         <ul className="space-y-2 flex flex-col">
           {/* Active item */}
-          <li>
-            <AsideButton>Browse</AsideButton>
-          </li>
-          <li>
-            <AsideButton>Songs</AsideButton>
-          </li>
+          <Link to="/videos">
+            <li>
+              <AsideButton>Videos</AsideButton>
+            </li>
+          </Link>
+          <Link to="/songs">
+            <li>
+              <AsideButton>Songs</AsideButton>
+            </li>
+          </Link>
           <li>
             <AsideButton>Albums</AsideButton>
           </li>
@@ -45,4 +46,6 @@ export default function VideoPlayer() {
       </div>
     </aside>
   );
-}
+};
+
+export default Aside;

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { AudioPlayer } from "../lib/oscilator.js";
-import { MusicPlayerContext } from "../context/MusicPlayerContext.jsx";
+import { AudioPlayer } from "../../lib/oscilator.js";
+import { MusicPlayerContext } from "../../context/MusicPlayerContext.jsx";
 import { Play, Pause, SkipForward, SkipBack, Disc3 } from "lucide-react";
-import ClickableButton from "../components/ClickableButton.jsx";
+import ClickableButton from "../../components/ClickableButton.jsx";
 function MusicBar() {
   const audioRef = useRef(null);
   const canvasRef = useRef(null);

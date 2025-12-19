@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import SongItem from "./SongItem";
-import { MusicPlayerContext } from "../context/MusicPlayerContext";
-import MusicBar from "./MusicBar";
+import SongItem from "./SongItem.jsx";
+import { MusicPlayerContext } from "../../context/MusicPlayerContext.jsx";
+import MusicBar from "./MusicBar.jsx";
 import PopularArtists from "./PopularArtists";
 import PopularCategory from "./PopularCategory";
 import { RotateCcw } from "lucide-react";
-import ClickableButton from "./ClickableButton";
+import ClickableButton from "../../components/ClickableButton.jsx";
 const Main = () => {
   const {
     currentListOfSongs,

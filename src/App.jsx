@@ -1,17 +1,18 @@
 import React from "react";
-import Filters from "./components/Filters";
-import Aside from "./components/Aside/Aside";
-import MusicPlayerContext from "./context/MusicPlayerContext";
-import Main from "./components/Main";
-
+import { Routes, Route } from "react-router-dom";
+import Aside from "./components/Aside/Aside.jsx";
+import MusicPage from "./pages/MusicPage/MusicPage.jsx";
+import VideosPage from "./pages/Videos/VideosPage.jsx";
 const App = () => {
   return (
     // bg-[#1e1d1d]
     <main className="flex bg-[#191818]">
-      <MusicPlayerContext>
-        <Aside />
-        <Main />
-      </MusicPlayerContext>
+      <Aside />
+      <Routes>
+        <Route path="/" element={<MusicPage />} />
+        <Route path="/songs" element={<MusicPage />} />
+        <Route path="/videos" element={<VideosPage />} />
+      </Routes>
     </main>
   );
 };
