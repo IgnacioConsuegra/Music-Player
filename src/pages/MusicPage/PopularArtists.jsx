@@ -20,6 +20,10 @@ const PopularArtists = ({ artistList }) => {
     }
   };
 
+  function normalizeString(str) {
+    return str.replace(/\s+/g, "").toLowerCase();
+  }
+
   return (
     <section className="relative group py-8 px-4 text-white w-full ">
       {/* Header */}
@@ -61,12 +65,12 @@ const PopularArtists = ({ artistList }) => {
             >
               <div className="relative mb-3">
                 <img
-                  src={`https://m.media-amazon.com/images/M/MV5BYzFiNzVkMzQtNzljOS00NWUzLWI0YWYtZTllZjEwYTE1MjhmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg`}
+                  src={`artistPhotos/${normalizeString(artist)}.png`}
                   alt={artist}
                   className={`w-full aspect-square object-cover rounded-full border-2 
                       ${
                         artist === currentArtist
-                          ? "border-green-300"
+                          ? "border-3 border-[#444]"
                           : "border-transparent"
                       }
   

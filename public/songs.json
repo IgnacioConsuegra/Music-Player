@@ -11,12 +11,7 @@
     "url": "music/besameMucho.mp3",
     "category": "Romantic"
   },
-  {
-    "title": "Expedition 33 osts",
-    "artist": "Dream Piano Ensemble",
-    "url": "music/clair.mp3",
-    "category": "Classical"
-  },
+
   {
     "title": "Let me love you",
     "artist": "Justin Bieber",
@@ -54,20 +49,26 @@
     "category": "Lo-Fi"
   },
   {
-    "title": "alicia",
-    "artist": "Expedition33",
+    "title": "Expedition 33 osts",
+    "artist": "Expedition 33",
+    "url": "music/clair.mp3",
+    "category": "Classical"
+  },
+  {
+    "title": "Alicia ",
+    "artist": "Expedition 33",
     "url": "music/alicia.mp3",
     "category": "Lo-Fi"
   },
   {
-    "title": "ex33Orquesta",
-    "artist": "Expedition33",
+    "title": "Ex33Orquesta",
+    "artist": "Expedition 33",
     "url": "music/ex33Orquesta.mp3",
     "category": "Lo-Fi"
   },
   {
     "title": "Lumiere",
-    "artist": "Expedition33",
+    "artist": "Expedition 33",
     "url": "music/lumiere.mp3",
     "category": "Lo-Fi"
   },

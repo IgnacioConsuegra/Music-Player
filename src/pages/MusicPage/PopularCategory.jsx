@@ -5,10 +5,14 @@ import { useRef } from "react";
 import { MusicPlayerContext } from "../../context/MusicPlayerContext.jsx";
 import ClickableButton from "../../components/ClickableButton.jsx";
 
-const PopularCategory = ({ categoryList, currentCategory }) => {
+const PopularCategory = () => {
   const scrollRef = useRef(null);
-  const { handleChangeCategory, handleResetCategory } =
-    useContext(MusicPlayerContext);
+  const {
+    handleChangeCategory,
+    handleResetCategory,
+    currentListOfCategories,
+    currentCategory,
+  } = useContext(MusicPlayerContext);
   const scroll = direction => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
@@ -56,9 +60,8 @@ const PopularCategory = ({ categoryList, currentCategory }) => {
         ref={scrollRef}
         className="flex flex-row overflow-x-auto gap-4 scroll-smooth no-scrollbar w-full md:overflow-x-hidden"
       >
-        {categoryList.map((category, index) => (
+        {currentListOfCategories.map((category, index) => (
           <ClickableButton key={index}>
-            {" "}
             <div
               className="flex-none w-32 md:w-40 text-center cursor-pointer group/item"
               onClick={() => handleChangeCategory(category)}
@@ -70,7 +73,7 @@ const PopularCategory = ({ categoryList, currentCategory }) => {
                   className={`w-full aspect-square object-cover rounded-full border-2 
                       ${
                         category === currentCategory
-                          ? "border-green-300"
+                          ? "border-3 border-[#444]"
                           : "border-transparent"
                       }
   

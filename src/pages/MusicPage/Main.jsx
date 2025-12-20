@@ -7,12 +7,8 @@ import PopularCategory from "./PopularCategory";
 import { RotateCcw } from "lucide-react";
 import ClickableButton from "../../components/ClickableButton.jsx";
 const Main = () => {
-  const {
-    currentListOfSongs,
-    currentListOfArtist,
-    currentListOfCategories,
-    handleResetFilters,
-  } = useContext(MusicPlayerContext);
+  const { currentListOfSongs, currentListOfArtist, handleResetFilters } =
+    useContext(MusicPlayerContext);
   return (
     <section
       className={`bg-black min-h-screen text-white w-full lg:w-full md:w-[85%] md:max-w-[85%]  
@@ -24,7 +20,7 @@ const Main = () => {
       </section>
       {/* Popular Artist sections */}
       <PopularArtists artistList={currentListOfArtist} />
-      <PopularCategory categoryList={currentListOfCategories} />
+      <PopularCategory />
       {/* SongsSection */}
       <section>
         <h2 className="flex gap-2">

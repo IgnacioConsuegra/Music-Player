@@ -101,19 +101,16 @@ export default function MusicPlayerProvider({ children }) {
   };
   const applyCurrentFilters = () => {
     let newList = listOfSongs;
+    console.log(currentArtist, currentCategory);
     if (currentArtist !== "All") {
-      newList = listOfSongs.filter(({ artist }) => artist === currentArtist);
+      newList = newList.filter(({ artist }) => artist === currentArtist);
     }
     if (currentCategory !== "All") {
-      newList = listOfSongs.filter(
-        ({ category }) => category === currentCategory
-      );
+      newList = newList.filter(({ category }) => category === currentCategory);
     }
     setCurrentListOfSongs(newList);
   };
-  useEffect(() => {
-    applyCurrentFilters();
-  }, [currentArtist, currentCategory]);
+
   const handleChangeCurrentListOfSongs = list => {
     const categoryList = getNewCategory(list);
     const artistList = getNewArtist(list);
@@ -127,7 +124,6 @@ export default function MusicPlayerProvider({ children }) {
       newList = newList.filter(({ category }) => category === currentCategory);
     }
     setCurrentListOfSongs(newList);
-    handleChangeCurrentListOfSongs(newList);
   };
   const handleResetCategory = () => {
     setCurrentCategory("All");
@@ -136,7 +132,6 @@ export default function MusicPlayerProvider({ children }) {
       newList = newList.filter(({ artists }) => artists === currentArtist);
     }
     setCurrentListOfSongs(newList);
-    handleChangeCurrentListOfSongs(newList);
   };
 
   const handleResetFilters = () => {
@@ -182,6 +177,9 @@ export default function MusicPlayerProvider({ children }) {
       setCurrentSong(currentSongUrlCopy.current);
     }
   }, [currentSong]);
+  useEffect(() => {
+    applyCurrentFilters();
+  }, [currentArtist, currentCategory]);
   return (
     <>
       <MusicPlayerContext.Provider
