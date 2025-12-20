@@ -1,8 +1,7 @@
 export class AudioPlayer {
   playing = false;
   currentTime = 0;
-  volume = 0.4;
-
+  myBody = document.getElementsByTagName("body")[0];
   constructor(audioEl, canvasEl, setIsPlaying, handleSongFinished) {
     this.audio = audioEl;
     this.canvas = canvasEl;
@@ -14,6 +13,7 @@ export class AudioPlayer {
   }
 
   initializeAudio() {
+    this.audio.volume = 0.1;
     this.audioCtx = new AudioContext();
     this.track = this.audioCtx.createMediaElementSource(this.audio);
     this.analyzerNode = this.audioCtx.createAnalyser();
@@ -122,11 +122,28 @@ export class AudioPlayer {
       this.setIsPlaying(false);
       this.handleSongFinished();
     });
+    this.myBody.addEventListener("keypress", key => {
+      this.handleKeyPress(key.key);
+    });
   }
   changeTime(time) {
     this.audio.currentTime += time;
   }
   destroy() {
     this.audioCtx?.close();
+  }
+  handleKeyPress(key) {
+    switch (key) {
+      case "+":
+        this.audio.volume += 0.1;
+        break;
+      case "-":
+        this.audio.volume -= 0.1;
+
+        break;
+
+      default:
+        break;
+    }
   }
 }
