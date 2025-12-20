@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 import { useRef } from "react";
 import { MusicPlayerContext } from "../../context/MusicPlayerContext";
 import ClickableButton from "../../components/ClickableButton.jsx";
+import ImageWithFallback from "../../components/ImageWithFallBack.jsx";
 
 const PopularArtists = ({ artistList }) => {
   const scrollRef = useRef(null);
@@ -64,8 +65,9 @@ const PopularArtists = ({ artistList }) => {
               onClick={() => handleChangeArtist(artist)}
             >
               <div className="relative mb-3">
-                <img
-                  src={`artistPhotos/${normalizeString(artist)}.png`}
+                <ImageWithFallback
+                  src={`artistPhotos/${normalizeString(artist)}.png `}
+                  fallback={"categoryPhotos/default.png"}
                   alt={artist}
                   className={`w-full aspect-square object-cover rounded-full border-2 
                       ${

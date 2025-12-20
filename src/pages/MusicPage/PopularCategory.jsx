@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 import { useRef } from "react";
 import { MusicPlayerContext } from "../../context/MusicPlayerContext.jsx";
 import ClickableButton from "../../components/ClickableButton.jsx";
-
+import ImageWithFallBack from "../../components/ImageWithFallBack.jsx";
 const PopularCategory = () => {
   const scrollRef = useRef(null);
   const {
@@ -23,7 +23,9 @@ const PopularCategory = () => {
       scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
     }
   };
-
+  function normalizeString(str) {
+    return str.replace(/\s+/g, "").toLowerCase();
+  }
   return (
     <section className="relative group py-8 px-4 text-white w-full ">
       {/* Header */}
@@ -67,8 +69,9 @@ const PopularCategory = () => {
               onClick={() => handleChangeCategory(category)}
             >
               <div className="relative mb-3">
-                <img
-                  src={`https://m.media-amazon.com/images/M/MV5BYzFiNzVkMzQtNzljOS00NWUzLWI0YWYtZTllZjEwYTE1MjhmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg`}
+                <ImageWithFallBack
+                  src={`categoryPhotos/${normalizeString(category)}.png `}
+                  fallback={"categoryPhotos/default.png"}
                   alt={category}
                   className={`w-full aspect-square object-cover rounded-full border-2 
                       ${
