@@ -23,36 +23,27 @@ const VideosPage = () => {
   }, [videos, currentVideo]);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <div style={{ marginBottom: "20px" }}>
+    <div className="text-white p-5">
+      <div className="pb-5">
         {currentVideo ? (
           <>
-            <h2>{currentVideo.title}</h2>
+            <h1 className="text-center text-2xl pb-2">{currentVideo.title}</h1>
             <video src={currentVideo.url} controls width="100%" />
           </>
         ) : (
-          <p>No hay video seleccionado</p>
+          <p>Not select video</p>
         )}
       </div>
 
-      {/* Lista de videos */}
       <div>
-        <h3>Lista de videos</h3>
+        <h3 className="text-white">List of videos</h3>
 
         {videos.map((video, index) => (
           <div
             key={index}
             onClick={() => setCurrentVideo(video)}
-            style={{
-              display: "flex",
-              gap: "12px",
-              padding: "10px",
-              cursor: "pointer",
-              border: "1px solid #444",
-              marginBottom: "10px",
-            }}
+            className={`flex gap-2 p-2 cursor-pointer border border-[#444] mb-8`}
           >
-            {/* Placeholder para imagen futura */}
             <div
               style={{
                 width: "120px",
@@ -65,10 +56,9 @@ const VideosPage = () => {
                 fontSize: "12px",
               }}
             >
-              Imagen
+              Image
             </div>
 
-            {/* Info del video */}
             <div>
               <p style={{ margin: 0 }}>{video.title}</p>
             </div>

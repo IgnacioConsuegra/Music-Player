@@ -4,7 +4,7 @@ import AsideButton from "./AsideButton";
 import { Link } from "react-router-dom";
 const Aside = () => {
   return (
-    <aside className="hidden md:flex w-52 text-neutral-400 p-4 md:w-[15%] md:max-w-[15%] py-8 flex-col gap-10">
+    <aside className="hidden md:flex md:w-[15%] md:max-w-[15%] w-52 text-neutral-400 p-4  py-8 flex-col gap-10">
       <div>
         <h2 className="text-sm mb-4 tracking-wide px-4 text-white">Library</h2>
 
