@@ -143,5 +143,41 @@
     "artist": "One republic",
     "url": "music/countingStars.mp3",
     "category": "Romantic"
-  }  
+  },
+  {
+    "title": "Love Me",
+    "artist": "JMSN",
+    "url": "music/loveMe.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Just the two of us",
+    "artist": "Grover washington Jr",
+    "url": "music/justTheTwoOfUs.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Nod-Krai",
+    "artist": "Aurora",
+    "url": "music/Nod-Krai.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Runaway",
+    "artist": "Aurora",
+    "url": "music/Runaway.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Everthing Matters",
+    "artist": "Aurora",
+    "url": "music/everthingMatters.mp3",
+    "category": "Romantic"
+  },
+  {
+    "title": "Volcan",
+    "artist": "Jose Jose",
+    "url": "music/volcan.mp3",
+    "category": "Romantic"
+  }
 ]
