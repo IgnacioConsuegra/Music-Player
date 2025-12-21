@@ -1,23 +1,17 @@
-import React, { useContext, useEffect, useRef } from "react";
-import { AudioPlayer } from "../../lib/oscilator.js";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { AudioPlayer } from "../../lib/oscillator.js";
 import { MusicPlayerContext } from "../../context/MusicPlayerContext.jsx";
 import { Play, Pause, SkipForward, SkipBack, Disc3 } from "lucide-react";
 import ClickableButton from "../../components/ClickableButton.jsx";
 function MusicBar() {
-  const audioRef = useRef(null);
-  const canvasRef = useRef(null);
-  const playerRef = useRef(null); // This points to my AudioPlayer class
-  const firstTime = useRef(false);
-  const {
-    currentSong,
-    isMusicPlaying,
-    togglePlay,
-    setIsMusicPlaying,
-    author,
-    songName,
-    handleSkip,
-    handleSongFinished,
-  } = useContext(MusicPlayerContext);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const audioRef = useRef(null); // This is pointing to our audio tag, so the audio player can take actions on it.
+  const canvasRef = useRef(null); //Our canvas Pointer
+  const musicPlayerRef = useRef(null); // This points to my AudioPlayer class
+  const firstTime = useRef(false); // This it's handling the de strict mode in react.
+  const { currentSong, author, songName, handleSkip, handleSongFinished } =
+    useContext(MusicPlayerContext);
+
   useEffect(() => {
     //Don't remove this if no matter what otherwise Everything it's gonna break.
     if (import.meta.env.DEV) {
@@ -27,7 +21,7 @@ function MusicBar() {
       }
     }
 
-    playerRef.current = new AudioPlayer(
+    musicPlayerRef.current = new AudioPlayer(
       audioRef.current,
       canvasRef.current,
       setIsMusicPlaying,
@@ -35,25 +29,24 @@ function MusicBar() {
     );
 
     return () => {
-      playerRef.current?.destroy();
-      playerRef.current = null;
+      musicPlayerRef.current?.destroy();
+      musicPlayerRef.current = null;
     };
   }, []);
+
   useEffect(() => {
     if (!currentSong.length) {
       return;
     }
-    playerRef.current.playAudio();
+    musicPlayerRef.current.playAudio();
     setIsMusicPlaying(true);
   }, [currentSong]);
+
   const handleTogglePlay = () => {
-    playerRef.current.togglePlay();
-    togglePlay();
+    musicPlayerRef.current.togglePlay();
+    setIsMusicPlaying(val => !val);
   };
-  const handleIncrease = () => {
-    console.log("increasing");
-    playerRef.current.changeTime(40);
-  };
+
   return (
     <div
       className={` ${

@@ -1,15 +1,22 @@
 export class AudioPlayer {
   playing = false;
-  currentTime = 0;
   myBody = document.getElementsByTagName("body")[0];
-  constructor(audioEl, canvasEl, setIsPlaying, handleSongFinished) {
+  constructor(
+    audioEl,
+    canvasEl,
+    handleAudioStop,
+    handleAudioPlay,
+    handleSongFinished
+  ) {
     this.audio = audioEl;
     this.canvas = canvasEl;
     this.canvasCtx = canvasEl.getContext("2d");
-    this.setIsPlaying = setIsPlaying;
-    this.initializeAudio();
-    this.attachEvents();
+    this.handleAudioStop = handleAudioStop;
     this.handleSongFinished = handleSongFinished;
+    this.handleAudioPlay = handleAudioPlay;
+    this.repeatSong = false;
+    this.attachEvents();
+    this.initializeAudio();
   }
 
   initializeAudio() {
@@ -114,21 +121,23 @@ export class AudioPlayer {
 
     step();
   };
+  handleRepeatSong = value => {
+    if (value) {
+      this.repeatSong = true;
+    } else {
+      this.repeatSong = false;
+    }
+  };
 
   attachEvents() {
     this.audio.addEventListener("ended", () => {
-      // this.playing = false;
-      this.audio.currentTime = 0;
-      this.setIsPlaying(false);
-      this.handleSongFinished();
+      this.handleAudioStop();
     });
     this.myBody.addEventListener("keypress", key => {
       this.handleKeyPress(key.key);
     });
   }
-  changeTime(time) {
-    this.audio.currentTime += time;
-  }
+
   destroy() {
     this.audioCtx?.close();
   }

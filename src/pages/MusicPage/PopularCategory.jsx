@@ -76,7 +76,7 @@ const PopularCategory = () => {
                   className={`w-full aspect-square object-cover rounded-full border-2 
                       ${
                         category === currentCategory
-                          ? "border-3 border-[#444]"
+                          ? "border-3 border-white"
                           : "border-transparent"
                       }
   

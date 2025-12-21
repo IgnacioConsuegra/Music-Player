@@ -72,7 +72,7 @@ const PopularArtists = ({ artistList }) => {
                   className={`w-full aspect-square object-cover rounded-full border-2 
                       ${
                         artist === currentArtist
-                          ? "border-3 border-[#444]"
+                          ? "border-3 border-white"
                           : "border-transparent"
                       }
   

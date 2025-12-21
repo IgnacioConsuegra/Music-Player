@@ -5,43 +5,61 @@ import { createContext } from "react";
 export const MusicPlayerContext = createContext();
 // eslint-disable-next-line react/prop-types
 export default function MusicPlayerProvider({ children }) {
-  const [currentListOfSongs, setCurrentListOfSongs] = useState([]); //Filtered songs.
   const [listOfSongs, setListOfSongs] = useState([]); //Original list of songs
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false); //This is obvious
-  const [currentSong, setCurrentSong] = useState(""); //This is the url of the song
-  const [currentVolume, setCurrentVolume] = useState(50); //Obvious too.
+  const [currentListOfSongs, setCurrentListOfSongs] = useState([]); //Filtered songs.
+  const [currentSong, setCurrentSong] = useState(""); //This is the url of the song (Maybe we can change it to handle the url, artist name and song title)
+  const [currentSongInfo, setCurrentSongInfo] = useState({});
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false); //This is obvious (Necessary)
+  const [isSongFinished, setIsSongFinished] = useState(false); //Obvious too (Not necessary, at least yet.)
+
+  const [currentVolume, setCurrentVolume] = useState(50); //Obvious too. (Not really necessary)
   const [currentIndex, setCurrentIndex] = useState(0); //This is which song where are pointing in our listOfSongs by default 0.
-  const [author, setAuthor] = useState("Author");
-  const [currentCategory, setCurrentCategory] = useState("All");
-  const [currentArtist, setCurrentArtist] = useState("All");
+
+  const [currentCategory, setCurrentCategory] = useState("All"); //This will give you the list of categories
+  const [currentArtist, setCurrentArtist] = useState("All"); // This will handle the list of artist.
+
+  const [author, setAuthor] = useState("Author"); //This will be used in the musicBarComponent
   const [songName, setSongName] = useState("Song");
+
   const [currentListOfArtist, setCurrentListOfArtist] = useState([]);
   const [currentListOfCategories, setCurrentListOfCategories] = useState([]);
-  const [isSongFinished, setIsSongFinished] = useState(false);
 
   const currentSongUrlCopy = useRef();
+
+  //This loads the songs the first time the page is loaded(Necessary)
   async function loadSongs() {
     try {
       const res = await fetch("./songs.json");
       const songs = await res.json();
       setListOfSongs(songs);
       setCurrentListOfSongs(songs);
-      handleChangeCurrentListOfSongs(songs);
+      handleArtistAndCategories(songs);
     } catch (error) {
       console.error("Error loading songs:", error);
     }
   }
-  // Function to init to play songs
-  const togglePlay = () => {
-    if (!currentSong.length) return;
-    if (isMusicPlaying) {
-      setIsMusicPlaying(false);
-    } else {
-      setIsMusicPlaying(true);
-    }
+  const handleArtistAndCategories = list => {
+    const { categoryList, artistList } = getArtistAndCAtegories(list);
+    setCurrentListOfCategories(Object.keys(categoryList));
+    setCurrentListOfArtist(Object.keys(artistList));
+  };
+  const getArtistAndCAtegories = list => {
+    const categoryList = {};
+    list.forEach(({ category }) => {
+      if (!(category in categoryList)) categoryList[category] = 0;
+      categoryList[category] += 1;
+    });
+    const artistList = {};
+    list.forEach(({ artist }) => {
+      if (!(artist in artistList)) artistList[artist] = 0;
+      artistList[artist] += 1;
+    });
+    return { categoryList, artistList };
   };
 
-  //Function to go to the next song, it's supposed to get 1 or -1.
+  // Function to init to play songs
+
+  //Function to go to the next song, it's supposed to get 1 or -1. (Necessary)
   const handleSkip = value => {
     if (value !== 1 && value !== -1) {
       throw new Error(
@@ -65,6 +83,7 @@ export default function MusicPlayerProvider({ children }) {
       return Math.max(0, Math.min(next, currentListOfSongs.length - 1));
     });
   };
+  // This function will be executed once the user click a song.
   const handleSelectSong = ({ url, title, artist }) => {
     if (typeof url !== "string") {
       throw new Error(
@@ -111,12 +130,6 @@ export default function MusicPlayerProvider({ children }) {
     setCurrentListOfSongs(newList);
   };
 
-  const handleChangeCurrentListOfSongs = list => {
-    const categoryList = getNewCategory(list);
-    const artistList = getNewArtist(list);
-    setCurrentListOfCategories(Object.keys(categoryList));
-    setCurrentListOfArtist(Object.keys(artistList));
-  };
   const handleResetArtist = () => {
     setCurrentArtist("All");
     let newList = listOfSongs;
@@ -136,28 +149,12 @@ export default function MusicPlayerProvider({ children }) {
 
   const handleResetFilters = () => {
     setCurrentListOfSongs(listOfSongs);
-    handleChangeCurrentListOfSongs(listOfSongs);
   };
 
   const handleSongFinished = () => {
     setIsSongFinished(true);
   };
-  const getNewCategory = list => {
-    const categoryList = {};
-    list.forEach(({ category }) => {
-      if (!(category in categoryList)) categoryList[category] = 0;
-      categoryList[category] += 1;
-    });
-    return categoryList;
-  };
-  const getNewArtist = list => {
-    const artistList = {};
-    list.forEach(({ artist }) => {
-      if (!(artist in artistList)) artistList[artist] = 0;
-      artistList[artist] += 1;
-    });
-    return artistList;
-  };
+
   useEffect(() => {
     loadSongs();
   }, []);
@@ -193,7 +190,6 @@ export default function MusicPlayerProvider({ children }) {
           setCurrentSong,
           handleSelectSong,
           handleSkip,
-          togglePlay,
           author,
           songName,
           handleChangeArtist,
