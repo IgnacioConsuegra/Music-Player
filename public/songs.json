@@ -3,128 +3,115 @@
     "title": "El Amar y Querer",
     "artist": "Jose Jose",
     "url": "music/amarYQuerer.mp3",
-    "category": "Romantic"
+    "category": "Latin Ballad"
   },
   {
     "title": "Besame mucho",
     "artist": "Luis Miguel",
     "url": "music/besameMucho.mp3",
-    "category": "Romantic"
+    "category": "Latin Ballad"
   },
-
   {
     "title": "Let me love you",
     "artist": "Justin Bieber",
     "url": "music/letMeLoveYou.mp3",
-    "category": "Romantic"
+    "category": "Pop"
   },
   {
     "title": "Peaches",
     "artist": "Justin Bieber",
     "url": "music/peaches.mp3",
-    "category": "Romantic"
+    "category": "Pop"
   },
   {
     "title": "Stay",
     "artist": "Justin Bieber",
     "url": "music/theKid.mp3",
-    "category": "Romantic"
+    "category": "Pop"
   },
   {
     "title": "Die With a Smile",
     "artist": "Bruno Mars",
     "url": "music/dieWithASmile.mp3",
-    "category": "Romantic"
+    "category": "Soul"
   },
   {
     "title": "Training Season",
     "artist": "Dua Lipa",
     "url": "music/trainingSeason.mp3",
-    "category": "Romantic"
-  },
-  {
-    "title": "Eto",
-    "artist": "Haru Shizuka",
-    "url": "music/eto.mp3",
-    "category": "Lo-Fi"
+    "category": "Pop"
   },
   {
     "title": "Expedition 33 osts",
     "artist": "Expedition 33",
     "url": "music/clair.mp3",
-    "category": "Classical"
+    "category": "Soundtrack"
   },
   {
     "title": "Alicia ",
     "artist": "Expedition 33",
     "url": "music/alicia.mp3",
-    "category": "Lo-Fi"
+    "category": "Soundtrack"
   },
   {
     "title": "Ex33Orquesta",
     "artist": "Expedition 33",
     "url": "music/ex33Orquesta.mp3",
-    "category": "Lo-Fi"
+    "category": "Soundtrack"
   },
   {
     "title": "Lumiere",
     "artist": "Expedition 33",
     "url": "music/lumiere.mp3",
-    "category": "Lo-Fi"
-  },
-  {
-    "title": "thanatos",
-    "artist": "Evangelion",
-    "url": "music/thanatos.mp3",
-    "category": "Lo-Fi"
+    "category": "Soundtrack"
   },
   {
     "title": "Skyfall",
     "artist": "Adele",
     "url": "music/skyFall.mp3",
-    "category": "Epic"
+    "category": "Soundtrack"
   },
   {
     "title": "Waiting for love",
     "artist": "Avicii",
     "url": "music/waitingForLove.mp3",
-    "category": "Romantic"
+    "category": "Electronic"
   },
   {
     "title": "Mean to be",
     "artist": "Bbno$",
     "url": "music/meantToBe.mp3",
-    "category": "Lo-Fi"
+    "category": "Hip-Hop"
   },
   {
     "title": "Paradise",
     "artist": "Coldplay",
     "url": "music/paradise.mp3",
-    "category": "Awesome"
+    "category": "Alternative"
   },
   {
     "title": "The Scientist",
     "artist": "Coldplay",
     "url": "music/theScientist.mp3",
-    "category": "Lo-Fi"
+    "category": "Alternative"
   },
   {
     "title": "Yellow",
     "artist": "Coldplay",
     "url": "music/yellow.mp3",
-    "category": "Romantic"
+    "category": "Alternative"
   },
   {
     "title": "Fix You",
     "artist": "Coldplay",
     "url": "music/fixYou.mp3",
-    "category": "Epic"
+    "category": "Alternative"
   },
   {
     "title": "Shape Of You",
     "artist": "Ed Sheeran",
     "url": "music/shapeOfYou.mp3",
-    "category": "Lo-Fi"
+    "category": "Pop"
   },
   {
     "title": "Until I found You",
@@ -136,48 +123,85 @@
     "title": "All of me",
     "artist": "John Legend",
     "url": "music/allOfMe.mp3",
-    "category": "Romantic"
+    "category": "R&B"
   },
   {
     "title": "Counting stars",
     "artist": "One republic",
     "url": "music/countingStars.mp3",
-    "category": "Romantic"
+    "category": "Pop Rock"
   },
   {
     "title": "Love Me",
     "artist": "JMSN",
     "url": "music/loveMe.mp3",
-    "category": "Romantic"
+    "category": "R&B"
   },
   {
     "title": "Just the two of us",
     "artist": "Grover washington Jr",
     "url": "music/justTheTwoOfUs.mp3",
-    "category": "Romantic"
+    "category": "Jazz"
   },
   {
     "title": "Nod-Krai",
     "artist": "Aurora",
     "url": "music/Nod-Krai.mp3",
-    "category": "Romantic"
+    "category": "Alternative"
   },
   {
     "title": "Runaway",
     "artist": "Aurora",
     "url": "music/Runaway.mp3",
-    "category": "Romantic"
+    "category": "Alternative"
   },
   {
     "title": "Everthing Matters",
     "artist": "Aurora",
     "url": "music/everthingMatters.mp3",
-    "category": "Romantic"
+    "category": "Alternative"
   },
   {
     "title": "Volcan",
     "artist": "Jose Jose",
     "url": "music/volcan.mp3",
-    "category": "Romantic"
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Eto",
+    "artist": "Lo-Fi",
+    "url": "music/eto.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "Running Away",
+    "artist": "Lo-Fi",
+    "url": "music/runningAway.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "All we have is now",
+    "artist": "Lo-Fi",
+    "url": "music/allWeHaveIsNow.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "Je Te Laisserai Des Mots ",
+    "artist": "Lo-Fi",
+    "url": "music/jeTeLaisseraiDesMots.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "City of Stars",
+    "artist": "La La Land",
+    "url": "music/cityOfStars.mp3",
+    "category": "Lo-Fi"
+  },
+  {
+    "title": "thanatos",
+    "artist": "Evangelion",
+    "url": "music/thanatos.mp3",
+    "category": "Soundtrack"
   }
+
 ]

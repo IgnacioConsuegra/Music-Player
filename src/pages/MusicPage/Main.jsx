@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import SongItem from "./SongItem.jsx";
 import { MusicPlayerContext } from "../../context/MusicPlayerContext.jsx";
-import MusicBar from "./MusicBar.jsx";
 import PopularArtists from "./PopularArtists";
 import PopularCategory from "./PopularCategory";
 import { RotateCcw } from "lucide-react";
@@ -22,7 +21,7 @@ const Main = () => {
       <PopularArtists artistList={currentListOfArtist} />
       <PopularCategory />
       {/* SongsSection */}
-      <section>
+      <section className="overflow-hidden">
         <h2 className="flex gap-2">
           List of songs{" "}
           <ClickableButton>
@@ -48,7 +47,6 @@ const Main = () => {
         </div>
       </section>
       {/* Music player section */}
-      <MusicBar url={"../public/music/alicia.mp3"} />
     </section>
   );
 };

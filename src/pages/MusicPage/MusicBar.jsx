@@ -9,7 +9,7 @@ function MusicBar() {
   const canvasRef = useRef(null); //Our canvas Pointer
   const musicPlayerRef = useRef(null); // This points to my AudioPlayer class
   const firstTime = useRef(false); // This it's handling the de strict mode in react.
-  const { currentSong, author, songName, handleSkip, handleSongFinished } =
+  const { currentSong, handleSkip, currentSongInfo, setIsSongFinished } =
     useContext(MusicPlayerContext);
 
   useEffect(() => {
@@ -24,8 +24,10 @@ function MusicBar() {
     musicPlayerRef.current = new AudioPlayer(
       audioRef.current,
       canvasRef.current,
-      setIsMusicPlaying,
-      handleSongFinished
+      handleSongIsPlaying,
+      handleSongIsPaused,
+      handleSongIsFinished,
+      handleTogglePlay
     );
 
     return () => {
@@ -39,22 +41,34 @@ function MusicBar() {
       return;
     }
     musicPlayerRef.current.playAudio();
-    setIsMusicPlaying(true);
+    handleSongIsPlaying(true);
   }, [currentSong]);
 
   const handleTogglePlay = () => {
     musicPlayerRef.current.togglePlay();
-    setIsMusicPlaying(val => !val);
+  };
+  const handleSongIsFinished = () => {
+    setIsSongFinished(true);
+  };
+  const handleSongIsPlaying = () => {
+    setIsMusicPlaying(true);
+  };
+  const handleSongIsPaused = () => {
+    setIsMusicPlaying(false);
   };
 
   return (
     <div
-      className={` ${
-        !currentSong ? "hidden" : "block"
-      } fixed z-50 bottom-[5%] left-1/2 -translate-x-1/2 w-[95%] md:w-[60%] 
-    border border-white rounded-2xl items-center bg-black p-4 
+      className={` ${!currentSong ? "hidden" : "block"} 
+      fixed z-50 bottom-9   md:bottom-[0%] left-1/2 -translate-x-1/2 w-[95%] md:w-[60%] 
+     border  rounded-t-lg items-center bg-black p-4 
+     
     pointer-events-auto flex flex-row gap-4 md:h-14`}
     >
+      {/* <div class="rounded-t-lg ..."></div>
+<div class="rounded-r-lg ..."></div>
+<div class="rounded-b-lg ..."></div>
+<div class="rounded-l-lg ..."></div> */}
       <audio ref={audioRef} src={currentSong} />
       {/* <button onClick={handleIncrease}>Increase</button> */}
       {/* 1. Music Info - 50% on mobile, 30% om desktop */}
@@ -69,8 +83,12 @@ function MusicBar() {
           <Disc3 />
         </div>
         <div className="truncate text-white">
-          <p className="font-bold truncate text-sm md:text-base">{author}</p>
-          <p className="text-xs md:text-sm opacity-70 truncate">{songName}</p>
+          <p className="font-bold truncate text-sm md:text-base">
+            {currentSongInfo["artist"]}
+          </p>
+          <p className="text-xs md:text-sm opacity-70 truncate">
+            {currentSongInfo["title"]}
+          </p>
         </div>
       </div>
 

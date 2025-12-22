@@ -1,19 +1,20 @@
 export class AudioPlayer {
-  playing = false;
   myBody = document.getElementsByTagName("body")[0];
   constructor(
     audioEl,
     canvasEl,
-    handleAudioStop,
-    handleAudioPlay,
-    handleSongFinished
+    handleSongIsPlaying,
+    handleSongIsPaused,
+    handleSongIsFinished,
+    handleTogglePlay
   ) {
     this.audio = audioEl;
     this.canvas = canvasEl;
     this.canvasCtx = canvasEl.getContext("2d");
-    this.handleAudioStop = handleAudioStop;
-    this.handleSongFinished = handleSongFinished;
-    this.handleAudioPlay = handleAudioPlay;
+    this.handleSongIsPlaying = handleSongIsPlaying;
+    this.handleSongIsFinished = handleSongIsFinished;
+    this.handleSongIsPaused = handleSongIsPaused;
+    this.handleTogglePlay = handleTogglePlay;
     this.repeatSong = false;
     this.attachEvents();
     this.initializeAudio();
@@ -33,7 +34,7 @@ export class AudioPlayer {
   }
 
   updateFrequency = () => {
-    if (!this.playing) return;
+    if (!this.audio.play) return;
 
     this.analyzerNode.getByteFrequencyData(this.dataArray);
     this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -56,33 +57,27 @@ export class AudioPlayer {
     if (this.audioCtx.state === "suspended") {
       await this.audioCtx.resume();
     }
-
-    if (this.playing) {
-      this.pauseAudio();
+    if (this.audio.paused) {
+      this.audio.play();
     } else {
-      this.playAudio();
+      this.audio.pause();
     }
   }
   async playAudio() {
-    try {
-      if (this.audioCtx.state === "suspended") {
-        await this.audioCtx.resume();
-      }
-
-      if (!this.audio.paused) return;
-
-      await this.audio.play();
-      this.playing = true;
-      this.updateFrequency();
-    } catch (err) {
-      this.playing = false;
+    if (this.audioCtx.state === "suspended") {
+      await this.audioCtx.resume();
     }
+    this.audio.play();
+    this.handleSongIsPlaying();
+    this.updateFrequency();
   }
 
   pauseAudio() {
-    if (this.audio.paused) return;
-    this.playing = false;
+    if (this.audio.ended) {
+      return;
+    }
     this.audio.pause();
+    this.handleSongIsPaused();
     this.decayBars();
   }
   decayBars = () => {
@@ -131,7 +126,13 @@ export class AudioPlayer {
 
   attachEvents() {
     this.audio.addEventListener("ended", () => {
-      this.handleAudioStop();
+      this.handleSongIsFinished();
+    });
+    this.audio.addEventListener("pause", () => {
+      this.pauseAudio();
+    });
+    this.audio.addEventListener("play", () => {
+      this.playAudio();
     });
     this.myBody.addEventListener("keypress", key => {
       this.handleKeyPress(key.key);

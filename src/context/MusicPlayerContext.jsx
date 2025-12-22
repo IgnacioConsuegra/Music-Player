@@ -9,17 +9,11 @@ export default function MusicPlayerProvider({ children }) {
   const [currentListOfSongs, setCurrentListOfSongs] = useState([]); //Filtered songs.
   const [currentSong, setCurrentSong] = useState(""); //This is the url of the song (Maybe we can change it to handle the url, artist name and song title)
   const [currentSongInfo, setCurrentSongInfo] = useState({});
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false); //This is obvious (Necessary)
-  const [isSongFinished, setIsSongFinished] = useState(false); //Obvious too (Not necessary, at least yet.)
 
-  const [currentVolume, setCurrentVolume] = useState(50); //Obvious too. (Not really necessary)
   const [currentIndex, setCurrentIndex] = useState(0); //This is which song where are pointing in our listOfSongs by default 0.
-
+  const [isSongFinished, setIsSongFinished] = useState(false); //Necessary to change the song.
   const [currentCategory, setCurrentCategory] = useState("All"); //This will give you the list of categories
   const [currentArtist, setCurrentArtist] = useState("All"); // This will handle the list of artist.
-
-  const [author, setAuthor] = useState("Author"); //This will be used in the musicBarComponent
-  const [songName, setSongName] = useState("Song");
 
   const [currentListOfArtist, setCurrentListOfArtist] = useState([]);
   const [currentListOfCategories, setCurrentListOfCategories] = useState([]);
@@ -57,10 +51,8 @@ export default function MusicPlayerProvider({ children }) {
     return { categoryList, artistList };
   };
 
-  // Function to init to play songs
-
   //Function to go to the next song, it's supposed to get 1 or -1. (Necessary)
-  const handleSkip = value => {
+  function handleSkip(value = 1) {
     if (value !== 1 && value !== -1) {
       throw new Error(
         "Handle Next Song called with a value different than 1 or -1"
@@ -72,7 +64,6 @@ export default function MusicPlayerProvider({ children }) {
     setCurrentIndex(val => {
       let newIndex = value + val;
       if (newIndex >= currentListOfSongs.length && val === 0) {
-        setIsMusicPlaying(true);
         setCurrentSong("");
         return 0;
       }
@@ -82,7 +73,7 @@ export default function MusicPlayerProvider({ children }) {
       const next = val + value;
       return Math.max(0, Math.min(next, currentListOfSongs.length - 1));
     });
-  };
+  }
   // This function will be executed once the user click a song.
   const handleSelectSong = ({ url, title, artist }) => {
     if (typeof url !== "string") {
@@ -94,11 +85,9 @@ export default function MusicPlayerProvider({ children }) {
       ({ title: current }) => current === title
     );
     currentSongUrlCopy.current = url;
-    setIsSongFinished(false);
+    setCurrentSongInfo({ url, title, artist });
     setCurrentIndex(newIndex);
     setCurrentSong(url);
-    setAuthor(artist);
-    setSongName(title);
   };
   const handleChangeArtist = artistName => {
     if (artistName === currentArtist) {
@@ -120,7 +109,6 @@ export default function MusicPlayerProvider({ children }) {
   };
   const applyCurrentFilters = () => {
     let newList = listOfSongs;
-    console.log(currentArtist, currentCategory);
     if (currentArtist !== "All") {
       newList = newList.filter(({ artist }) => artist === currentArtist);
     }
@@ -151,10 +139,6 @@ export default function MusicPlayerProvider({ children }) {
     setCurrentListOfSongs(listOfSongs);
   };
 
-  const handleSongFinished = () => {
-    setIsSongFinished(true);
-  };
-
   useEffect(() => {
     loadSongs();
   }, []);
@@ -164,11 +148,7 @@ export default function MusicPlayerProvider({ children }) {
     const { url, title, artist } = currentListOfSongs[currentIndex];
     handleSelectSong({ url, title, artist });
   }, [currentIndex]);
-  useEffect(() => {
-    if (isSongFinished) {
-      handleSkip(1);
-    }
-  }, [isSongFinished]);
+
   useEffect(() => {
     if (!currentSong.length && currentSongUrlCopy.current) {
       setCurrentSong(currentSongUrlCopy.current);
@@ -177,21 +157,22 @@ export default function MusicPlayerProvider({ children }) {
   useEffect(() => {
     applyCurrentFilters();
   }, [currentArtist, currentCategory]);
+  useEffect(() => {
+    if (isSongFinished) {
+      handleSkip(1);
+      setIsSongFinished(false);
+    }
+  }, [isSongFinished]);
   return (
     <>
       <MusicPlayerContext.Provider
         value={{
-          isMusicPlaying,
           currentSong,
           listOfSongs,
           currentListOfSongs,
-          currentVolume,
-          setIsMusicPlaying,
           setCurrentSong,
           handleSelectSong,
           handleSkip,
-          author,
-          songName,
           handleChangeArtist,
           currentListOfArtist,
           currentListOfCategories,
@@ -199,9 +180,10 @@ export default function MusicPlayerProvider({ children }) {
           handleResetFilters,
           handleResetArtist,
           handleResetCategory,
-          handleSongFinished,
           currentArtist,
           currentCategory,
+          currentSongInfo,
+          setIsSongFinished,
         }}
       >
         {children}

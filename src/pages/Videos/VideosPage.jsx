@@ -23,11 +23,13 @@ const VideosPage = () => {
   }, [videos, currentVideo]);
 
   return (
-    <div className="text-white p-5">
-      <div className="pb-5">
+    <section className="text-white h-screen p-5 ">
+      <div className="md:pb-5">
         {currentVideo ? (
           <>
-            <h1 className="text-center text-2xl pb-2">{currentVideo.title}</h1>
+            <h1 className="text-center text-2xl md:pb-2">
+              {currentVideo.title}
+            </h1>
             <video src={currentVideo.url} controls width="100%" />
           </>
         ) : (
@@ -65,7 +67,7 @@ const VideosPage = () => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
