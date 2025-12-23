@@ -65,10 +65,6 @@ function MusicBar() {
      
     pointer-events-auto flex flex-row gap-4 md:h-14`}
     >
-      {/* <div class="rounded-t-lg ..."></div>
-<div class="rounded-r-lg ..."></div>
-<div class="rounded-b-lg ..."></div>
-<div class="rounded-l-lg ..."></div> */}
       <audio ref={audioRef} src={currentSong} />
       {/* <button onClick={handleIncrease}>Increase</button> */}
       {/* 1. Music Info - 50% on mobile, 30% om desktop */}

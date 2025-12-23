@@ -2,7 +2,7 @@ import React from "react";
 
 import AsideButton from "./AsideButton";
 import { Link } from "react-router-dom";
-import { Music, Video } from "lucide-react";
+import { Music, Video, BookOpen } from "lucide-react";
 const Aside = () => {
   return (
     <>
@@ -24,9 +24,12 @@ const Aside = () => {
                 <AsideButton>Songs</AsideButton>
               </li>
             </Link>
-            <li>
-              <AsideButton>Albums</AsideButton>
-            </li>
+            <Link to="/pdf">
+              <li>
+                <AsideButton>Pdf</AsideButton>
+              </li>
+            </Link>
+
             <li>
               <AsideButton>Radios</AsideButton>
             </li>
@@ -67,6 +70,13 @@ const Aside = () => {
             <li>
               <AsideButton>
                 <Video />
+              </AsideButton>
+            </li>
+          </Link>
+          <Link to="/pdf">
+            <li>
+              <AsideButton>
+                <BookOpen />
               </AsideButton>
             </li>
           </Link>

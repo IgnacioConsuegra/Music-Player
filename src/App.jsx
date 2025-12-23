@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Aside from "./components/Aside/Aside.jsx";
 import MusicPage from "./pages/MusicPage/MusicPage.jsx";
 import VideosPage from "./pages/Videos/VideosPage.jsx";
+import PdfPage from "./pages/Pdf/PdfPage.jsx";
 import { Layout } from "./pages/Layout/Layout.jsx";
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route index element={<MusicPage />} />
         <Route path="/songs" element={<MusicPage />} />
         <Route path="/videos" element={<VideosPage />} />
+        <Route path="/pdf" element={<PdfPage />} />
       </Route>
     </Routes>
   );
