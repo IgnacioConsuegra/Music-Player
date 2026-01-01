@@ -145,10 +145,10 @@ export class AudioPlayer {
   handleKeyPress(key) {
     switch (key) {
       case "+":
-        this.audio.volume += 0.1;
+        this.audio.volume += 0.01;
         break;
       case "-":
-        this.audio.volume -= 0.1;
+        this.audio.volume -= 0.01;
 
         break;
 

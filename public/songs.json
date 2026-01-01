@@ -202,6 +202,79 @@
     "artist": "Evangelion",
     "url": "music/thanatos.mp3",
     "category": "Soundtrack"
-  }
+  },
 
+  {
+    "title": "Prive",
+    "artist": "Juan Luis Guerra",
+    "url": "music/prive.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Bachata en fukuoka",
+    "artist": "Juan Luis Guerra",
+    "url": "music/bachataEnFukuoka.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "El niagara en bicicleta",
+    "artist": "Juan Luis Guerra",
+    "url": "music/elNiagaraEnBicicleta.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "La Travesia",
+    "artist": "Juan Luis Guerra",
+    "url": "music/comoTuNoHayNinguna.mp3",
+    "category": "Latin Ballad"
+  },
+
+  {
+    "title": "Amapola",
+    "artist": "Juan Luis Guerra",
+    "url": "music/amapola.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Las Avispas",
+    "artist": "Juan Luis Guerra",
+    "url": "music/lasAvispas.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Mi bendicion",
+    "artist": "Juan Luis Guerra",
+    "url": "music/miBendicion.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Todo tiene su hora",
+    "artist": "Juan Luis Guerra",
+    "url": "music/todoTieneSuHora.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Vela la pena",
+    "artist": "Juan Luis Guerra",
+    "url": "music/valeLaPena.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Quiere siempre",
+    "artist": " Orquesta Aragón",
+    "url": "music/quieremeSiempre.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Cuando Cuando",
+    "artist": "Jose Y el toro",
+    "url": "music/cuandoCuando.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Unreal, Leipzig",
+    "artist": "Klangkuenstler",
+    "url": "music/unrealLeipzig.mp3",
+    "category": "Techno"
+  }
 ]

@@ -5,6 +5,8 @@ import MusicPage from "./pages/MusicPage/MusicPage.jsx";
 import VideosPage from "./pages/Videos/VideosPage.jsx";
 import PdfPage from "./pages/Pdf/PdfPage.jsx";
 import { Layout } from "./pages/Layout/Layout.jsx";
+import EditorPage from "./pages/EditorPage/EditorPage.jsx";
+import ImpostorPage from "./pages/ImpostorPage/ImpostorPage.jsx";
 const App = () => {
   return (
     // bg-[#1e1d1d]
@@ -14,6 +16,8 @@ const App = () => {
         <Route path="/songs" element={<MusicPage />} />
         <Route path="/videos" element={<VideosPage />} />
         <Route path="/pdf" element={<PdfPage />} />
+        <Route path="/editor" element={<EditorPage />} />
+        <Route path="/impostor" element={<ImpostorPage />} />
       </Route>
     </Routes>
   );
