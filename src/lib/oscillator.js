@@ -6,7 +6,8 @@ export class AudioPlayer {
     handleSongIsPlaying,
     handleSongIsPaused,
     handleSongIsFinished,
-    handleTogglePlay
+    handleTogglePlay,
+    updateProgress
   ) {
     this.audio = audioEl;
     this.canvas = canvasEl;
@@ -16,6 +17,7 @@ export class AudioPlayer {
     this.handleSongIsPaused = handleSongIsPaused;
     this.handleTogglePlay = handleTogglePlay;
     this.repeatSong = false;
+    this.updateProgress = updateProgress;
     this.attachEvents();
     this.initializeAudio();
   }
@@ -136,6 +138,9 @@ export class AudioPlayer {
     });
     this.myBody.addEventListener("keypress", key => {
       this.handleKeyPress(key.key);
+    });
+    this.audio.addEventListener("timeupdate", () => {
+      this.updateProgress(this.audio.currentTime);
     });
   }
 
