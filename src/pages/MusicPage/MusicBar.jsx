@@ -37,7 +37,7 @@ function MusicBar() {
       handleSongIsPaused,
       handleSongIsFinished,
       handleTogglePlay,
-      handleUpdateProgress
+      handleUpdateProgress,
     );
 
     return () => {
@@ -67,7 +67,6 @@ function MusicBar() {
     setIsMusicPlaying(false);
   };
   const handleUpdateProgress = time => {
-    console.log("Updating time : ", time);
     setCurrentTime(time);
   };
   const handleChevronUp = () => {

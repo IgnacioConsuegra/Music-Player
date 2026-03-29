@@ -156,9 +156,33 @@
     "category": "Alternative"
   },
   {
-    "title": "Everthing Matters",
+    "title": "Everything Matters",
     "artist": "Aurora",
     "url": "music/everthingMatters.mp3",
+    "category": "Alternative"
+  },
+  {
+    "title": "Cure for me",
+    "artist": "Aurora",
+    "url": "music/cureForMe.mp3",
+    "category": "Alternative"
+  },
+  {
+    "title": "Scarborough Fair",
+    "artist": "Aurora",
+    "url": "music/scarboroughFair.mp3",
+    "category": "Alternative"
+  },
+  {
+    "title": "Soft Universe",
+    "artist": "Aurora",
+    "url": "music/softUniverse.mp3",
+    "category": "Alternative"
+  },
+  {
+    "title": "The seed",
+    "artist": "Aurora",
+    "url": "music/theSeed.mp3",
     "category": "Alternative"
   },
   {
@@ -203,12 +227,66 @@
     "url": "music/thanatos.mp3",
     "category": "Soundtrack"
   },
+  {
+    "title": "One last Kiss",
+    "artist": "Evangelion",
+    "url": "music/oneLastKiss.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Tsubasa Wo Kudasai",
+    "artist": "Evangelion",
+    "url": "music/tsubasaWoKudasai.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Hand Of Fate",
+    "artist": "Evangelion",
+    "url": "music/handOfFate.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Gravestone Without A Date",
+    "artist": "Evangelion",
+    "url": "music/gravestoneWithoutADate.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Hedgehogs Dilemma",
+    "artist": "Evangelion",
+    "url": "music/hedgehogsDilemma.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Psycho",
+    "artist": "Evangelion",
+    "url": "music/psycho.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "The way of lief",
+    "artist": "Evangelion",
+    "url": "music/theWayOfLife.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Prettiest Star",
+    "artist": "Evangelion",
+    "url": "music/prettiestStar.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Pillars of Faith",
+    "artist": "Evangelion",
+    "url": "music/pillarsOfFaith.mp3",
+    "category": "Soundtrack"
+  },
 
   {
     "title": "Prive",
     "artist": "Juan Luis Guerra",
     "url": "music/prive.mp3",
-    "category": "Soundtrack"
+    "category": "Latin Ballad"
   },
   {
     "title": "Bachata en fukuoka",
@@ -272,9 +350,267 @@
     "category": "Latin Ballad"
   },
   {
-    "title": "Unreal, Leipzig",
-    "artist": "Klangkuenstler",
+    "title": "Klangkuenstler",
+    "artist": "techno",
     "url": "music/unrealLeipzig.mp3",
     "category": "Techno"
+  },
+  {
+    "title": "Restricted - Teletech Arena",
+    "artist": "techno",
+    "url": "music/restricted.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Fantasm b2b Winson - Scandal",
+    "artist": "techno",
+    "url": "music/highEnergyAndTechno.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Uberest Dom Bogota",
+    "artist": "techno",
+    "url": "music/uberestDomBogota.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Cloudy b2b Kuko",
+    "artist": "techno",
+    "url": "music/IADE2025.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Adrián Mills b2b Cloudy b2b Kuko - Nibirii Festival",
+    "artist": "techno",
+    "url": "music/iUnrealNibriiFestival.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Cupid - Neuro-Sama",
+    "artist": "Neuro-Sama",
+    "url": "music/cupidNeuro.mp3",
+    "category": "Love"
+  },
+  {
+    "title": "Everytime we touch Neuro-Sama",
+    "artist": "Neuro-Sama",
+    "url": "music/everytimeWeTouchNeuro.mp3",
+    "category": "Love"
+  },
+  {
+    "title": "ChinaTown Neuro-Sama",
+    "artist": "Neuro-Sama",
+    "url": "music/chinatownNeuro.mp3",
+    "category": "Love"
+  },
+  {
+    "title": "ChipiChapa",
+    "artist": "Neuro-Sama",
+    "url": "music/evilChipiChapa.mp3",
+    "category": "Energetic"
+  },
+  {
+    "title": "Owl Song",
+    "artist": "Unknow",
+    "url": "music/owlSong.mp3",
+    "category": "Mistic"
+  },
+  {
+    "title": "In Verruf - Gotec Club",
+    "artist": "techno",
+    "url": "music/inVeruf.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Funk Tribu",
+    "artist": "techno",
+    "url": "music/funkTribu.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Vieze Asbak - Gotec Club",
+    "artist": "techno",
+    "url": "music/boilerFloor.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Eczodia - Welcome Back Devil",
+    "artist": "techno",
+    "url": "music/welcomeBackDevil.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Yoshiko - Let him cook",
+    "artist": "techno",
+    "url": "music/letHimCook.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Fumi f2f Peterblue f2f Noise Mafia",
+    "artist": "techno",
+    "url": "music/noiseMafia.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Kobosil - HiveFestival",
+    "artist": "techno",
+    "url": "music/Kobosil-HiveFestival.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "ToxicMachinery - VerkniptFestival",
+    "artist": "techno",
+    "url": "music/ToxicMachinery-VerkniptFestival.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Somewhen-HiveFestival",
+    "artist": "techno",
+    "url": "music/Somewhen-HiveFestival.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Kobosil - GermanRave",
+    "artist": "techno",
+    "url": "music/Kobosil-GermanRave.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Kiki - AMF2025",
+    "artist": "techno",
+    "url": "music/Kiki-AMF2025.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "VTSSb2bKiki - BoilerRoom",
+    "artist": "techno",
+    "url": "music/VTSSb2bKiki-BoilerRoom.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Azyr - Gotec Club",
+    "artist": "techno",
+    "url": "music/Azyr-GotecClub.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Prada2000 - Gotec Club",
+    "artist": "techno",
+    "url": "music/Prada2000-GotecClub.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Azyr - Hasardeur",
+    "artist": "techno",
+    "url": "music/Azyr-Hasardeur.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Azyr Boiler Roomx Teletech",
+    "artist": "techno",
+    "url": "music/Azyr-Boiler-Roomx-Teletech.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Nikolina - Gotec Club",
+    "artist": "techno",
+    "url": "music/Nikolina-GotecClub.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Serafina - Gotec Club",
+    "artist": "techno",
+    "url": "music/Serafina-GotecClub.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Lilium",
+    "artist": "Unknow",
+    "url": "music/lilium.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Lord of mysteries ending",
+    "artist": "tlom",
+    "url": "music/tlomEnding.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "El dia de mi suerte",
+    "artist": "Willie Colon",
+    "url": "music/elDiaDeMiSuerte.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "El Gran Varon",
+    "artist": "Willie Colon",
+    "url": "music/elGranVaron.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Calle Luna Calle Sol",
+    "artist": "Willie Colon",
+    "url": "music/calleLunaCalleSol.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Gitana",
+    "artist": "Willie Colon",
+    "url": "music/gitana.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Idilio",
+    "artist": "Willie Colon",
+    "url": "music/idilio.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Oh Que Sera",
+    "artist": "Willie Colon",
+    "url": "music/ohQueSera.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Sin poderte Hablar",
+    "artist": "Willie Colon",
+    "url": "music/sinPoderteHablar.mp3",
+    "category": "Latin Ballad"
+  },
+  {
+    "title": "Psalm 88",
+    "artist": "God",
+    "url": "music/psalm88.mp3",
+    "category": "The truth"
+  },
+  {
+    "title": "Psalm 69",
+    "artist": "God",
+    "url": "music/psalm69.mp3",
+    "category": "The truth"
+  },
+  {
+    "title": "Psalm 32",
+    "artist": "God",
+    "url": "music/psalm32.mp3",
+    "category": "The truth"
+  },
+  {
+    "title": "Psalm 25",
+    "artist": "God",
+    "url": "music/psalm25.mp3",
+    "category": "The truth"
+  },
+  {
+    "title": "Psalm 6",
+    "artist": "God",
+    "url": "music/psalm6.mp3",
+    "category": "The truth"
+  },
+  {
+    "title": "The sermon on the mount",
+    "artist": "God",
+    "url": "music/theMoutainSermon.mp3",
+    "category": "The truth"
   }
 ]

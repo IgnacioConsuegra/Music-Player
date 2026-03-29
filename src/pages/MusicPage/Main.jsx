@@ -19,6 +19,7 @@ const Main = () => {
       </section>
       {/* Popular Artist sections */}
       <PopularArtists artistList={currentListOfArtist} />
+      {/* Categories sections */}
       <PopularCategory />
       {/* SongsSection */}
       <section className="overflow-hidden">

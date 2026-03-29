@@ -23,7 +23,7 @@ const VideosPage = () => {
   }, [videos, currentVideo]);
 
   return (
-    <section className="text-white h-screen p-5 ">
+    <section className="text-white p-5 w-full md:p-5 min-h-screen md:h-full ">
       <div className="md:pb-5">
         {currentVideo ? (
           <>

@@ -12,7 +12,7 @@ const PopularCategory = () => {
     handleResetCategory,
     currentListOfCategories,
     currentCategory,
-  } = useContext(MusicPlayerContext);
+  } = useContext(MusicPlayerContext);0
   const scroll = direction => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
