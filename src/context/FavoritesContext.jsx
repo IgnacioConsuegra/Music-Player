@@ -4,7 +4,7 @@ export const FavoritesContext = createContext();
 
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line react/prop-types
-export function FavoritesProvider({ children }) {
+export default function FavoritesProvider({ children }) {
   const [listOfFavorites, setListOfFavorites] = useState([]);
   useEffect(() => {
     const savedFavorites = localStorage.getItem("listOfFavorites");

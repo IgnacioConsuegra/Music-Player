@@ -14,12 +14,6 @@ export default function Favorites() {
       song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       song.artist.toLowerCase().includes(searchQuery.toLowerCase()),
   );
-  useEffect(() => {
-    setCurrentListOfSongs(listOfFavorites);
-  }, [listOfFavorites]);
-  useEffect(() => {
-    setCurrentListOfSongs(listOfFavorites);
-  }, []);
 
   return (
     <div className="w-full min-h-screen bg-black text-white p-8">

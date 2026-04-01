@@ -12,6 +12,7 @@ import {
 
 import { Heart, Plus, Repeat, RotateCw, RotateCcw } from "lucide-react";
 import ClickableButton from "../../components/ClickableButton.jsx";
+import { FavoritesContext } from "../../context/FavoritesContext.jsx";
 function MusicBar() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const audioRef = useRef(null); // This is pointing to our audio tag, so the audio player can take actions on it.
@@ -20,6 +21,7 @@ function MusicBar() {
   const firstTime = useRef(false); // This it's handling the de strict mode in react.
   const { currentSong, handleSkip, currentSongInfo, setIsSongFinished } =
     useContext(MusicPlayerContext);
+  const { addToFavorites, listOfFavorites } = useContext(FavoritesContext);
   const [isChevronUp, setIsChevronUp] = useState(false);
   const [songLength, setSongLength] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -125,8 +127,14 @@ function MusicBar() {
             </div>
           </div>
           <div className="flex items-center gap-4 md:ml-4">
-            <button className="text-gray-400 hover:text-emerald-500 transition-colors">
-              <Heart size={20} />
+            <button
+              className="text-gray-400 hover:text-emerald-500 transition-colors"
+              onClick={() => addToFavorites(currentSongInfo)}
+            >
+              <Heart
+                size={20}
+                className={`${listOfFavorites.some(value => value.url === currentSongInfo.url) && "fill-emerald-500 text-emerald-500"}`}
+              />
             </button>
             <button className="text-gray-400 hover:text-white transition-colors">
               <Plus size={20} />

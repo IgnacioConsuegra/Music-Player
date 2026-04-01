@@ -35,16 +35,15 @@ const Aside = () => {
           <ul className="space-y-2 flex flex-col">
             {/* Active item */}
 
-            <Link to="/impostor"></Link>
-            <li>
+            <Link to="/favorites">
               <AsideButton>Favorites</AsideButton>
-            </li>
-            <li>
+            </Link>
+            <Link to="/playlist">
               <AsideButton>My Playlists</AsideButton>
-            </li>
-            <li>
+            </Link>
+            <Link to="/impostor">
               <AsideButton>Impostor game</AsideButton>
-            </li>
+            </Link>
             <Link to="/editor">
               <li>
                 <AsideButton>Code editor</AsideButton>

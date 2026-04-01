@@ -55,7 +55,7 @@ export default function MusicPlayerProvider({ children }) {
   function handleSkip(value = 1) {
     if (value !== 1 && value !== -1) {
       throw new Error(
-        "Handle Next Song called with a value different than 1 or -1"
+        "Handle Next Song called with a value different than 1 or -1",
       );
     }
     if (!currentSong.length) return;
@@ -78,11 +78,11 @@ export default function MusicPlayerProvider({ children }) {
   const handleSelectSong = ({ url, title, artist }) => {
     if (typeof url !== "string") {
       throw new Error(
-        "Handle Select Song called with a value different than a string"
+        "Handle Select Song called with a value different than a string",
       );
     }
     let newIndex = currentListOfSongs.findIndex(
-      ({ title: current }) => current === title
+      ({ title: current }) => current === title,
     );
     currentSongUrlCopy.current = url;
     setCurrentSongInfo({ url, title, artist });
@@ -103,7 +103,7 @@ export default function MusicPlayerProvider({ children }) {
     }
     setCurrentCategory(categoryName);
     let newList = listOfSongs.filter(
-      ({ category }) => category === categoryName
+      ({ category }) => category === categoryName,
     );
     setCurrentListOfSongs(newList);
   };
@@ -184,6 +184,7 @@ export default function MusicPlayerProvider({ children }) {
           currentCategory,
           currentSongInfo,
           setIsSongFinished,
+          setCurrentListOfSongs,
         }}
       >
         {children}

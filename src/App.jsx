@@ -8,7 +8,8 @@ import VerifyPage from "./pages/VerifyPage/VerifyPage.jsx";
 import { Layout } from "./pages/Layout/Layout.jsx";
 import EditorPage from "./pages/EditorPage/EditorPage.jsx";
 import ImpostorPage from "./pages/ImpostorPage/ImpostorPage.jsx";
-
+import Favorites from "./pages/FavoritesPage/FavoritesPage.jsx";
+import PlayListPage from "./pages/PlayListPage/PlayListPage.jsx";
 const App = () => {
   const [isVerified, setIsVerified] = useState(true);
   const changeIsVerified = () => {
@@ -34,8 +35,10 @@ const App = () => {
         <Route path="/songs" element={<MusicPage />} />
         <Route path="/videos" element={<VideosPage />} />
         <Route path="/pdf" element={<PdfPage />} />
-        <Route path="/editor" element={<EditorPage />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/playlist" element={<ImpostorPage />} />
         <Route path="/impostor" element={<ImpostorPage />} />
+        <Route path="/editor" element={<EditorPage />} />
       </Route>
     </Routes>
   );
