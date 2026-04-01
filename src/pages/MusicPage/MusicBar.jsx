@@ -109,7 +109,6 @@ function MusicBar() {
   }, [currentSongInfo]);
   return (
     <>
-      {/*  */}
       <div className="fixed z-50 bottom-0 left-0 w-full bg-black/95 border-t border-gray-800 p-3 md:p-4 flex flex-col md:flex-row items-center gap-4 transition-all duration-300">
         <audio ref={audioRef} src={currentSong} />
 
