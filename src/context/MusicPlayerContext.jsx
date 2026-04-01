@@ -12,11 +12,6 @@ export default function MusicPlayerProvider({ children }) {
 
   const [currentIndex, setCurrentIndex] = useState(0); //This is which song where are pointing in our listOfSongs by default 0.
   const [isSongFinished, setIsSongFinished] = useState(false); //Necessary to change the song.
-  const [currentCategory, setCurrentCategory] = useState("All"); //This will give you the list of categories
-  const [currentArtist, setCurrentArtist] = useState("All"); // This will handle the list of artist.
-
-  const [currentListOfArtist, setCurrentListOfArtist] = useState([]);
-  const [currentListOfCategories, setCurrentListOfCategories] = useState([]);
 
   const currentSongUrlCopy = useRef();
 
@@ -27,7 +22,6 @@ export default function MusicPlayerProvider({ children }) {
       const songs = await res.json();
       setListOfSongs(songs);
       setCurrentListOfSongs(songs);
-      handleArtistAndCategories(songs);
     } catch (error) {
       console.error("Error loading songs:", error);
     }
@@ -71,73 +65,6 @@ export default function MusicPlayerProvider({ children }) {
     setCurrentIndex(newIndex);
     setCurrentSong(url);
   };
-  const handleChangeArtist = artistName => {
-    if (artistName === currentArtist) {
-      handleResetArtist();
-      return;
-    }
-    setCurrentArtist(artistName);
-  };
-  const handleChangeCategory = categoryName => {
-    if (categoryName === currentCategory) {
-      handleResetCategory();
-      return;
-    }
-    setCurrentCategory(categoryName);
-    let newList = listOfSongs.filter(
-      ({ category }) => category === categoryName,
-    );
-    setCurrentListOfSongs(newList);
-  };
-  const handleArtistAndCategories = list => {
-    const { categoryList, artistList } = getArtistAndCAtegories(list);
-    setCurrentListOfCategories(Object.keys(categoryList));
-    setCurrentListOfArtist(Object.keys(artistList));
-  };
-  const getArtistAndCAtegories = list => {
-    const categoryList = {};
-    list.forEach(({ category }) => {
-      if (!(category in categoryList)) categoryList[category] = 0;
-      categoryList[category] += 1;
-    });
-    const artistList = {};
-    list.forEach(({ artist }) => {
-      if (!(artist in artistList)) artistList[artist] = 0;
-      artistList[artist] += 1;
-    });
-    return { categoryList, artistList };
-  };
-  const applyCurrentFilters = () => {
-    let newList = listOfSongs;
-    if (currentArtist !== "All") {
-      newList = newList.filter(({ artist }) => artist === currentArtist);
-    }
-    if (currentCategory !== "All") {
-      newList = newList.filter(({ category }) => category === currentCategory);
-    }
-    setCurrentListOfSongs(newList);
-  };
-
-  const handleResetArtist = () => {
-    setCurrentArtist("All");
-    let newList = listOfSongs;
-    if (currentCategory !== "All") {
-      newList = newList.filter(({ category }) => category === currentCategory);
-    }
-    setCurrentListOfSongs(newList);
-  };
-  const handleResetCategory = () => {
-    setCurrentCategory("All");
-    let newList = listOfSongs;
-    if (currentArtist !== "All") {
-      newList = newList.filter(({ artists }) => artists === currentArtist);
-    }
-    setCurrentListOfSongs(newList);
-  };
-
-  const handleResetFilters = () => {
-    setCurrentListOfSongs(listOfSongs);
-  };
 
   useEffect(() => {
     loadSongs();
@@ -156,9 +83,7 @@ export default function MusicPlayerProvider({ children }) {
       setCurrentSong(currentSongUrlCopy.current);
     }
   }, [currentSong]);
-  useEffect(() => {
-    applyCurrentFilters();
-  }, [currentArtist, currentCategory]);
+
   useEffect(() => {
     if (isSongFinished) {
       handleSkip(1);
@@ -175,15 +100,6 @@ export default function MusicPlayerProvider({ children }) {
           setCurrentSong,
           handleSelectSong,
           handleSkip,
-          handleChangeArtist,
-          currentListOfArtist,
-          currentListOfCategories,
-          handleChangeCategory,
-          handleResetFilters,
-          handleResetArtist,
-          handleResetCategory,
-          currentArtist,
-          currentCategory,
           currentSongInfo,
           setIsSongFinished,
           setCurrentListOfSongs,

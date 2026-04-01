@@ -1,18 +1,17 @@
+/* eslint-disable react/prop-types */
 import React, { useContext } from "react";
 
 import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 import { useRef } from "react";
-import { MusicPlayerContext } from "../../context/MusicPlayerContext.jsx";
 import ClickableButton from "../../components/ClickableButton.jsx";
 import ImageWithFallBack from "../../components/ImageWithFallBack.jsx";
-const PopularCategory = () => {
+const PopularCategory = ({
+  handleChangeCategory,
+  handleResetCategory,
+  currentListOfCategories,
+  currentCategory,
+}) => {
   const scrollRef = useRef(null);
-  const {
-    handleChangeCategory,
-    handleResetCategory,
-    currentListOfCategories,
-    currentCategory,
-  } = useContext(MusicPlayerContext);0
   const scroll = direction => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;

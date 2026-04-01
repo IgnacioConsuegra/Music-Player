@@ -1,15 +1,18 @@
+/* eslint-disable react/prop-types */
 import React, { useContext } from "react";
 
 import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 import { useRef } from "react";
-import { MusicPlayerContext } from "../../context/MusicPlayerContext";
 import ClickableButton from "../../components/ClickableButton.jsx";
 import ImageWithFallback from "../../components/ImageWithFallBack.jsx";
 
-const PopularArtists = ({ artistList }) => {
+const PopularArtists = ({
+  handleChangeArtist,
+  handleResetArtist,
+  currentArtist,
+  currentListOfArtist,
+}) => {
   const scrollRef = useRef(null);
-  const { handleChangeArtist, handleResetArtist, currentArtist } =
-    useContext(MusicPlayerContext);
   const scroll = direction => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
@@ -58,7 +61,7 @@ const PopularArtists = ({ artistList }) => {
         ref={scrollRef}
         className="flex flex-row overflow-x-auto gap-4 scroll-smooth no-scrollbar w-full md:overflow-x-hidden"
       >
-        {artistList.map((artist, index) => (
+        {currentListOfArtist.map((artist, index) => (
           <ClickableButton key={index}>
             <div
               className="flex-none w-32 md:w-40 text-center cursor-pointer group/item"
