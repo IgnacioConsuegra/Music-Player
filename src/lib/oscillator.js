@@ -7,11 +7,11 @@ export class AudioPlayer {
     handleSongIsPaused,
     handleSongIsFinished,
     handleTogglePlay,
-    updateProgress
+    updateProgress,
   ) {
     this.audio = audioEl;
     this.canvas = canvasEl;
-    this.canvasCtx = canvasEl.getContext("2d");
+    this.canvasCtx = canvasEl?.getContext("2d");
     this.handleSongIsPlaying = handleSongIsPlaying;
     this.handleSongIsFinished = handleSongIsFinished;
     this.handleSongIsPaused = handleSongIsPaused;
@@ -36,7 +36,7 @@ export class AudioPlayer {
   }
 
   updateFrequency = () => {
-    if (!this.audio.play) return;
+    if (!this.audio.play || !this.audio) return;
 
     this.analyzerNode.getByteFrequencyData(this.dataArray);
     this.canvasCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);

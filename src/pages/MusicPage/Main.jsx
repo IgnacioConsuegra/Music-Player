@@ -5,6 +5,7 @@ import PopularArtists from "./PopularArtists";
 import PopularCategory from "./PopularCategory";
 import { RotateCcw } from "lucide-react";
 import ClickableButton from "../../components/ClickableButton.jsx";
+
 const Main = () => {
   const { currentListOfSongs, currentListOfArtist, handleResetFilters } =
     useContext(MusicPlayerContext);
@@ -14,9 +15,7 @@ const Main = () => {
         md:border-2 border-transparent md:rounded-tl-[40px] md:rounded-bl-[40px] p-8 pb-30 `}
     >
       {/* Popular playList section */}
-      <section className="hidden md:block">
-        <h1>Popular playList</h1>
-      </section>
+      <section className="hidden md:block"></section>
       {/* Popular Artist sections */}
       <PopularArtists artistList={currentListOfArtist} />
       {/* Categories sections */}

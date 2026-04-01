@@ -10,7 +10,7 @@ import EditorPage from "./pages/EditorPage/EditorPage.jsx";
 import ImpostorPage from "./pages/ImpostorPage/ImpostorPage.jsx";
 
 const App = () => {
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(true);
   const changeIsVerified = () => {
     setIsVerified(true);
   };
