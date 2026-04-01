@@ -4,6 +4,7 @@ import { Search, AudioLines, Heart } from "lucide-react";
 import { FavoritesContext } from "../../context/FavoritesContext";
 import SongItem from "../MusicPage/SongItem";
 import { MusicPlayerContext } from "../../context/MusicPlayerContext";
+import ClickableButton from "../../components/ClickableButton";
 export default function Favorites() {
   const { setCurrentListOfSongs } = useContext(MusicPlayerContext);
   const [searchQuery, setSearchQuery] = useState("");
@@ -14,7 +15,10 @@ export default function Favorites() {
       song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       song.artist.toLowerCase().includes(searchQuery.toLowerCase()),
   );
-
+  const handleClick = () => {
+    console.log(filteredSongs);
+    setCurrentListOfSongs(filteredSongs);
+  };
   return (
     <div className="w-full min-h-screen bg-black text-white p-8">
       <div className="flex justify-between items-center mb-10">
@@ -34,12 +38,12 @@ export default function Favorites() {
 
       <div className="flex flex-col gap-4">
         {filteredSongs.map((song, index) => (
-          <SongItem
-            artist={song.artist}
-            title={song.title}
-            url={song.url}
+          <ClickableButton
             key={`${song.artist}${song.title}`}
-          />
+            onClick={handleClick}
+          >
+            <SongItem artist={song.artist} title={song.title} url={song.url} />
+          </ClickableButton>
           // <div
           //   key={index}
           //   className="flex items-center w-full bg-white text-black rounded-2xl p-4 hover:bg-gray-100 transition-colors"

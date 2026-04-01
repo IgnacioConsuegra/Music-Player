@@ -6,7 +6,7 @@ export const MusicPlayerContext = createContext();
 // eslint-disable-next-line react/prop-types
 export default function MusicPlayerProvider({ children }) {
   const [listOfSongs, setListOfSongs] = useState([]); //Original list of songs
-  const [currentListOfSongs, setCurrentListOfSongs] = useState([]); //Filtered songs.
+  const [currentListOfSongs, setCurrentListOfSongs] = useState([]); //Filtered songs, here will be the songs that are in our favorites/playList
   const [currentSong, setCurrentSong] = useState(""); //This is the url of the song (Maybe we can change it to handle the url, artist name and song title)
   const [currentSongInfo, setCurrentSongInfo] = useState({});
 
@@ -32,24 +32,6 @@ export default function MusicPlayerProvider({ children }) {
       console.error("Error loading songs:", error);
     }
   }
-  const handleArtistAndCategories = list => {
-    const { categoryList, artistList } = getArtistAndCAtegories(list);
-    setCurrentListOfCategories(Object.keys(categoryList));
-    setCurrentListOfArtist(Object.keys(artistList));
-  };
-  const getArtistAndCAtegories = list => {
-    const categoryList = {};
-    list.forEach(({ category }) => {
-      if (!(category in categoryList)) categoryList[category] = 0;
-      categoryList[category] += 1;
-    });
-    const artistList = {};
-    list.forEach(({ artist }) => {
-      if (!(artist in artistList)) artistList[artist] = 0;
-      artistList[artist] += 1;
-    });
-    return { categoryList, artistList };
-  };
 
   //Function to go to the next song, it's supposed to get 1 or -1. (Necessary)
   function handleSkip(value = 1) {
@@ -107,6 +89,24 @@ export default function MusicPlayerProvider({ children }) {
     );
     setCurrentListOfSongs(newList);
   };
+  const handleArtistAndCategories = list => {
+    const { categoryList, artistList } = getArtistAndCAtegories(list);
+    setCurrentListOfCategories(Object.keys(categoryList));
+    setCurrentListOfArtist(Object.keys(artistList));
+  };
+  const getArtistAndCAtegories = list => {
+    const categoryList = {};
+    list.forEach(({ category }) => {
+      if (!(category in categoryList)) categoryList[category] = 0;
+      categoryList[category] += 1;
+    });
+    const artistList = {};
+    list.forEach(({ artist }) => {
+      if (!(artist in artistList)) artistList[artist] = 0;
+      artistList[artist] += 1;
+    });
+    return { categoryList, artistList };
+  };
   const applyCurrentFilters = () => {
     let newList = listOfSongs;
     if (currentArtist !== "All") {
@@ -145,6 +145,8 @@ export default function MusicPlayerProvider({ children }) {
 
   useEffect(() => {
     if (!currentSong.length) return;
+    if (!currentListOfSongs.length) return;
+    if (!currentIndex || currentIndex > currentListOfSongs.length) return;
     const { url, title, artist } = currentListOfSongs[currentIndex];
     handleSelectSong({ url, title, artist });
   }, [currentIndex]);
