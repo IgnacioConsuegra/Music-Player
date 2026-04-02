@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { X, Plus, RotateCcw } from "lucide-react";
+import { MusicPlayerContext } from "../context/MusicPlayerContext.jsx";
+import { PlayListContext } from "../context/PlayListContext.jsx";
 
-const PlaylistCreator = ({ currentListOfSongs, onClose, onSave }) => {
+const PlaylistCreator = ({ onClose, onSave }) => {
+  const { listOfSongs } = useContext(MusicPlayerContext);
+  const { getCurrentPlaylist } = useContext(PlayListContext);
+
+  const currentPlayList = getCurrentPlaylist();
+  const isEditing = Boolean(currentPlayList);
+
   const [playListName, setPlayListName] = useState("");
   const [description, setDescription] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -9,8 +17,16 @@ const PlaylistCreator = ({ currentListOfSongs, onClose, onSave }) => {
   const [removedSongs, setRemovedSongs] = useState([]);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    if (currentPlayList) {
+      setPlayListName(currentPlayList.playListName || "");
+      setDescription(currentPlayList.description || "");
+      setPlayListListOfSongs(currentPlayList.playListListOfSongs || []);
+    }
+  }, []);
+
   const filteredSongs = searchQuery
-    ? currentListOfSongs.filter(
+    ? listOfSongs.filter(
         song =>
           song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           song.artist.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -65,7 +81,7 @@ const PlaylistCreator = ({ currentListOfSongs, onClose, onSave }) => {
         </button>
 
         <h2 className="text-2xl font-bold mb-6 flex-shrink-0">
-          Create New Playlist
+          {isEditing ? "Modify Playlist" : "Create New Playlist"}
         </h2>
 
         <div className="flex-1 overflow-y-auto pr-2 flex flex-col gap-6">
@@ -198,7 +214,7 @@ const PlaylistCreator = ({ currentListOfSongs, onClose, onSave }) => {
             disabled={!playListName || playListListOfSongs.length === 0}
             className="bg-white text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition-transform disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed"
           >
-            Create Playlist
+            {isEditing ? "Update Playlist" : "Create Playlist"}
           </button>
         </div>
       </div>

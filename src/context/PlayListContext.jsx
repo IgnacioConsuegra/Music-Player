@@ -1,76 +1,117 @@
 import React, { createContext, useState, useEffect } from "react";
+import PlaylistCreator from "../components/PlayListCreation.jsx";
 
 export const PlayListContext = createContext();
 
-/* eslint-disable no-unused-vars */
-// eslint-disable-next-line react/prop-types
 export function PlayListProvider({ children }) {
   const [playlists, setPlaylists] = useState([]);
+  const [deletedPlaylists, setDeletedPlaylists] = useState([]);
+  const [creatingPlayList, setCreatingPlayList] = useState(false);
+  const [currentPlaylistName, setCurrentPlaylistName] = useState(null);
 
   useEffect(() => {
     const savedPlaylists = localStorage.getItem("myPlaylists");
     if (savedPlaylists) {
       setPlaylists(JSON.parse(savedPlaylists));
     }
+
+    const savedDeletedPlaylists = localStorage.getItem("deletedPlaylists");
+    if (savedDeletedPlaylists) {
+      const parsedDeletedPlaylists = JSON.parse(savedDeletedPlaylists);
+      const now = Date.now();
+      const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
+
+      const validDeletedPlaylists = parsedDeletedPlaylists.filter(
+        playlist => now - playlist.deletedAt < thirtyDaysInMs,
+      );
+
+      if (validDeletedPlaylists.length !== parsedDeletedPlaylists.length) {
+        localStorage.setItem(
+          "deletedPlaylists",
+          JSON.stringify(validDeletedPlaylists),
+        );
+      }
+
+      setDeletedPlaylists(validDeletedPlaylists);
+    }
   }, []);
 
-  const addToPlaylist = ({ url, title, artist, playListName }) => {
+  const onSave = ({ playListName, description, playListListOfSongs }) => {
     setPlaylists(prevPlaylists => {
       const existingPlaylistIndex = prevPlaylists.findIndex(
-        p => p.name === playListName,
+        p => p.playListName === playListName,
       );
 
       let updatedPlaylists;
 
       if (existingPlaylistIndex >= 0) {
-        // --- PLAYLIST EXISTS ---
-        const existingPlaylist = prevPlaylists[existingPlaylistIndex];
+        updatedPlaylists = [...prevPlaylists];
+        updatedPlaylists[existingPlaylistIndex] = {
+          playListName,
+          description,
+          playListListOfSongs,
+        };
+      } else {
+        updatedPlaylists = [
+          ...prevPlaylists,
+          { playListName, description, playListListOfSongs },
+        ];
+      }
 
-        // Optional: Check if the song is already in this playlist to avoid duplicates
-        const songAlreadyExists = existingPlaylist.songs.some(
-          song => song.url === url,
+      localStorage.setItem("myPlaylists", JSON.stringify(updatedPlaylists));
+      return updatedPlaylists;
+    });
+    setCreatingPlayList(false);
+  };
+
+  const addToPlaylist = ({ playListName, song }) => {
+    setPlaylists(prevPlaylists => {
+      const existingPlaylistIndex = prevPlaylists.findIndex(
+        p => p.playListName === playListName,
+      );
+
+      let updatedPlaylists;
+
+      if (existingPlaylistIndex >= 0) {
+        const existingPlaylist = prevPlaylists[existingPlaylistIndex];
+        const songAlreadyExists = existingPlaylist.playListListOfSongs.some(
+          s => s.url === song.url,
         );
+
         if (songAlreadyExists) {
-          console.warn("Song is already in this playlist!");
-          return prevPlaylists; // Do nothing if it's a duplicate
+          return prevPlaylists;
         }
 
-        // Add the new song to the existing playlist's 'songs' array
         const updatedPlaylist = {
           ...existingPlaylist,
-          songs: [...existingPlaylist.songs, { url, title, artist }],
+          playListListOfSongs: [...existingPlaylist.playListListOfSongs, song],
         };
 
-        // Replace the old playlist object with the updated one
         updatedPlaylists = [...prevPlaylists];
         updatedPlaylists[existingPlaylistIndex] = updatedPlaylist;
       } else {
-        // --- PLAYLIST DOES NOT EXIST ---
-        // Create a completely new playlist object
         const newPlaylist = {
-          name: playListName,
-          songs: [{ url, title, artist }],
+          playListName,
+          description: "",
+          playListListOfSongs: [song],
         };
-
         updatedPlaylists = [...prevPlaylists, newPlaylist];
       }
 
-      // Save to localStorage and update state
       localStorage.setItem("myPlaylists", JSON.stringify(updatedPlaylists));
       return updatedPlaylists;
     });
   };
 
-  // 4. Remove a song from a specific playlist
   const removeFromPlaylist = ({ url, playListName }) => {
     setPlaylists(prevPlaylists => {
       const updatedPlaylists = prevPlaylists.map(playlist => {
-        // Only modify the playlist that matches the name
-        if (playlist.name === playListName) {
+        if (playlist.playListName === playListName) {
           return {
             ...playlist,
-            // Filter out the song with the matching URL
-            songs: playlist.songs.filter(song => song.url !== url),
+            playListListOfSongs: playlist.playListListOfSongs.filter(
+              song => song.url !== url,
+            ),
           };
         }
         return playlist;
@@ -81,16 +122,107 @@ export function PlayListProvider({ children }) {
     });
   };
 
-  // 5. Bundle it all in the context value
+  const deletePlayList = playListName => {
+    setPlaylists(prevPlaylists => {
+      const playlistToDelete = prevPlaylists.find(
+        p => p.playListName === playListName,
+      );
+
+      if (playlistToDelete) {
+        setDeletedPlaylists(prevDeleted => {
+          const updatedDeleted = [
+            ...prevDeleted,
+            { ...playlistToDelete, deletedAt: Date.now() },
+          ];
+          localStorage.setItem(
+            "deletedPlaylists",
+            JSON.stringify(updatedDeleted),
+          );
+          return updatedDeleted;
+        });
+      }
+
+      const updatedPlaylists = prevPlaylists.filter(
+        p => p.playListName !== playListName,
+      );
+      localStorage.setItem("myPlaylists", JSON.stringify(updatedPlaylists));
+      return updatedPlaylists;
+    });
+
+    if (currentPlaylistName === playListName) {
+      setCurrentPlaylistName(null);
+    }
+  };
+
+  const getDeletedPlaylists = () => {
+    return deletedPlaylists;
+  };
+
+  const permanentlyDeletePlaylist = playListName => {
+    setDeletedPlaylists(prevDeleted => {
+      const updatedDeleted = prevDeleted.filter(
+        p => p.playListName !== playListName,
+      );
+      localStorage.setItem("deletedPlaylists", JSON.stringify(updatedDeleted));
+      return updatedDeleted;
+    });
+  };
+
+  const recoverPlaylist = playListName => {
+    setDeletedPlaylists(prevDeleted => {
+      const playlistToRecover = prevDeleted.find(
+        p => p.playListName === playListName,
+      );
+
+      if (playlistToRecover) {
+        const { deletedAt, ...restOfPlaylist } = playlistToRecover;
+
+        setPlaylists(prevPlaylists => {
+          const updatedPlaylists = [...prevPlaylists, restOfPlaylist];
+          localStorage.setItem("myPlaylists", JSON.stringify(updatedPlaylists));
+          return updatedPlaylists;
+        });
+      }
+
+      const updatedDeleted = prevDeleted.filter(
+        p => p.playListName !== playListName,
+      );
+      localStorage.setItem("deletedPlaylists", JSON.stringify(updatedDeleted));
+      return updatedDeleted;
+    });
+  };
+
+  const getCurrentPlaylist = () => {
+    return playlists.find(p => p.playListName === currentPlaylistName) || null;
+  };
+
   const contextValue = {
-    playlists, // This replaces listOfFavorites
+    playlists,
+    deletedPlaylists,
+    currentPlaylistName,
+    setCurrentPlaylistName,
     addToPlaylist,
     removeFromPlaylist,
+    setCreatingPlayList,
+    onSave,
+    deletePlayList,
+    getDeletedPlaylists,
+    permanentlyDeletePlaylist,
+    recoverPlaylist,
+    getCurrentPlaylist,
   };
 
   return (
     <PlayListContext.Provider value={contextValue}>
       {children}
+      {creatingPlayList && (
+        <PlaylistCreator
+          onSave={onSave}
+          onClose={() => setCreatingPlayList(false)}
+        />
+      )}
     </PlayListContext.Provider>
   );
 }
+
+export default PlayListProvider;

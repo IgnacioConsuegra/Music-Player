@@ -5,7 +5,7 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import MusicPlayerProvider from "./context/MusicPlayerContext.jsx";
 import FavoritesProvider from "./context/FavoritesContext.jsx";
-import PlayListProvider from "./context/MusicPlayerContext.jsx";
+import PlayListProvider from "./context/PlayListContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

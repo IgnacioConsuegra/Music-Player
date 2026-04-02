@@ -7,12 +7,14 @@ import { RotateCcw } from "lucide-react";
 import ClickableButton from "../../components/ClickableButton.jsx";
 
 const Main = () => {
-  const { listOfSongs, setCurrentListOfSongs } = useContext(MusicPlayerContext);
+  const { listOfSongs, setCurrentListOfSongs, currentSong, handleSelectSong } =
+    useContext(MusicPlayerContext);
   const [currentCategory, setCurrentCategory] = useState("All"); //This will give you the list of categories
   const [currentArtist, setCurrentArtist] = useState("All"); // This will handle the list of artist.
   const [currentListOfArtist, setCurrentListOfArtist] = useState([]);
   const [currentListOfCategories, setCurrentListOfCategories] = useState([]);
   const [thisCurrentListOfSongs, setThisCurrentListOfSongs] = useState([]);
+
   const handleChangeArtist = artistName => {
     if (artistName === currentArtist) {
       handleResetArtist();
@@ -84,6 +86,15 @@ const Main = () => {
     setCurrentArtist("All");
     setCurrentCategory("All");
   };
+  const handleSongClick = ({ url, title, artist }) => {
+    handleSelectSong({
+      url,
+      title,
+      artist,
+      toUpdateListOfSong: thisCurrentListOfSongs,
+    });
+    setCurrentListOfSongs(thisCurrentListOfSongs);
+  };
   useEffect(() => {
     setThisCurrentListOfSongs(listOfSongs);
     handleArtistAndCategories(listOfSongs);
@@ -133,7 +144,7 @@ const Main = () => {
                   category={value.category}
                   title={value.title}
                   url={value.url}
-                  toUpdateListOfSong={thisCurrentListOfSongs}
+                  handleSongClick={handleSongClick}
                 />
               </ClickableButton>
             );

@@ -36,7 +36,7 @@ const App = () => {
         <Route path="/videos" element={<VideosPage />} />
         <Route path="/pdf" element={<PdfPage />} />
         <Route path="/favorites" element={<Favorites />} />
-        <Route path="/playlist" element={<ImpostorPage />} />
+        <Route path="/playlist" element={<PlayListPage />} />
         <Route path="/impostor" element={<ImpostorPage />} />
         <Route path="/editor" element={<EditorPage />} />
       </Route>
