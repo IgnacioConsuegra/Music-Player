@@ -16,7 +16,6 @@ export default function Favorites() {
       song.artist.toLowerCase().includes(searchQuery.toLowerCase()),
   );
   const handleClick = () => {
-    console.log(filteredSongs);
     setCurrentListOfSongs(filteredSongs);
   };
   return (
@@ -42,7 +41,12 @@ export default function Favorites() {
             key={`${song.artist}${song.title}`}
             onClick={handleClick}
           >
-            <SongItem artist={song.artist} title={song.title} url={song.url} />
+            <SongItem
+              artist={song.artist}
+              title={song.title}
+              url={song.url}
+              toUpdateListOfSong={listOfFavorites}
+            />
           </ClickableButton>
           // <div
           //   key={index}

@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { MusicPlayerContext } from "../../context/MusicPlayerContext.jsx";
 import { AudioLines, Plus } from "lucide-react";
-const SongItem = ({ artist, title, url }) => {
+const SongItem = ({ artist, title, url, toUpdateListOfSong }) => {
   const { handleSelectSong, currentSong } = useContext(MusicPlayerContext);
   return (
     <div
-      onClick={() => handleSelectSong({ url, title, artist })}
+      onClick={() =>
+        handleSelectSong({ url, title, artist, toUpdateListOfSong })
+      }
       className={` text-black  ${
         url == currentSong ? "bg-cyan-800" : "bg-white"
       } 

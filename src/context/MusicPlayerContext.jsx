@@ -12,7 +12,7 @@ export default function MusicPlayerProvider({ children }) {
 
   const [currentIndex, setCurrentIndex] = useState(0); //This is which song where are pointing in our listOfSongs by default 0.
   const [isSongFinished, setIsSongFinished] = useState(false); //Necessary to change the song.
-
+  const [repeatSong, setRepeatSong] = useState(false);
   const currentSongUrlCopy = useRef();
 
   //This loads the songs the first time the page is loaded(Necessary)
@@ -29,6 +29,7 @@ export default function MusicPlayerProvider({ children }) {
 
   //Function to go to the next song, it's supposed to get 1 or -1. (Necessary)
   function handleSkip(value = 1) {
+    setRepeatSong(false);
     if (value !== 1 && value !== -1) {
       throw new Error(
         "Handle Next Song called with a value different than 1 or -1",
@@ -51,15 +52,25 @@ export default function MusicPlayerProvider({ children }) {
     });
   }
   // This function will be executed once the user click a song.
-  const handleSelectSong = ({ url, title, artist }) => {
+  const handleSelectSong = ({ url, title, artist, toUpdateListOfSong }) => {
+    setRepeatSong(false);
+
     if (typeof url !== "string") {
       throw new Error(
         "Handle Select Song called with a value different than a string",
       );
     }
-    let newIndex = currentListOfSongs.findIndex(
-      ({ title: current }) => current === title,
-    );
+    let newIndex;
+    if (toUpdateListOfSong) {
+      newIndex = toUpdateListOfSong.findIndex(
+        ({ title: current }) => current === title,
+      );
+    } else {
+      newIndex = currentListOfSongs.findIndex(
+        ({ title: current }) => current === title,
+      );
+    }
+
     currentSongUrlCopy.current = url;
     setCurrentSongInfo({ url, title, artist });
     setCurrentIndex(newIndex);
@@ -73,8 +84,12 @@ export default function MusicPlayerProvider({ children }) {
   useEffect(() => {
     if (!currentSong.length) return;
     if (!currentListOfSongs.length) return;
-    if (!currentIndex || currentIndex > currentListOfSongs.length) return;
-    const { url, title, artist } = currentListOfSongs[currentIndex];
+    let index = currentIndex;
+    if (index > currentListOfSongs.length || index < 0) {
+      index = 0;
+      setCurrentIndex(0);
+    }
+    const { url, title, artist } = currentListOfSongs[index];
     handleSelectSong({ url, title, artist });
   }, [currentIndex]);
 
@@ -88,6 +103,7 @@ export default function MusicPlayerProvider({ children }) {
     if (isSongFinished) {
       handleSkip(1);
       setIsSongFinished(false);
+      setRepeatSong(false);
     }
   }, [isSongFinished]);
   return (
@@ -103,6 +119,8 @@ export default function MusicPlayerProvider({ children }) {
           currentSongInfo,
           setIsSongFinished,
           setCurrentListOfSongs,
+          repeatSong,
+          setRepeatSong,
         }}
       >
         {children}

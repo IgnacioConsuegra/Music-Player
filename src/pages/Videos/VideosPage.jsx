@@ -10,17 +10,12 @@ const VideosPage = () => {
       const data = await res.json();
       setVideos(data);
       setCurrentVideo(data[0] || null);
-    } catch (error) {
-      console.error("Error loading videos:", error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
     loadVideos();
   }, []);
-  useEffect(() => {
-    console.log(videos, currentVideo);
-  }, [videos, currentVideo]);
 
   return (
     <section className="text-white p-5 w-full md:p-5 min-h-screen md:h-full ">

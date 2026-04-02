@@ -19,12 +19,19 @@ function MusicBar() {
   const canvasRef = useRef(null); //Our canvas Pointer
   const musicPlayerRef = useRef(null); // This points to my AudioPlayer class
   const firstTime = useRef(false); // This it's handling the de strict mode in react.
-  const { currentSong, handleSkip, currentSongInfo, setIsSongFinished } =
-    useContext(MusicPlayerContext);
+  const {
+    currentSong,
+    handleSkip,
+    currentSongInfo,
+    setIsSongFinished,
+    repeatSong,
+    setRepeatSong,
+  } = useContext(MusicPlayerContext);
   const { addToFavorites, listOfFavorites } = useContext(FavoritesContext);
   const [isChevronUp, setIsChevronUp] = useState(false);
   const [songLength, setSongLength] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [finishedSong, setFinishedSong] = useState(false);
   useEffect(() => {
     //Don't remove this if no matter what otherwise Everything it's gonna break.
     if (import.meta.env.DEV) {
@@ -61,9 +68,19 @@ function MusicBar() {
   const handleTogglePlay = () => {
     musicPlayerRef.current.togglePlay();
   };
-  const handleSongIsFinished = () => {
-    setIsSongFinished(true);
-  };
+  function handleSongIsFinished() {
+    setFinishedSong(true);
+  }
+  useEffect(() => {
+    if (finishedSong) {
+      if (repeatSong) {
+        musicPlayerRef.current?.repeatSong();
+      } else {
+        setIsSongFinished(true);
+      }
+      setFinishedSong(false);
+    }
+  }, [finishedSong]);
   const handleSongIsPlaying = () => {
     setIsMusicPlaying(true);
   };
@@ -91,11 +108,11 @@ function MusicBar() {
   };
   const handleInputChange = seconds => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio) return 0;
     const audioDuration = Math.floor(audio.duration);
-    if (!audioDuration) return;
+    if (!audioDuration) return 0;
     const conversion = (seconds * 100) / audioDuration;
-    return conversion;
+    return conversion || 0;
   };
   const handleModifyTime = seconds => {
     audioRef.current.currentTime += seconds;
@@ -103,14 +120,17 @@ function MusicBar() {
   useEffect(() => {
     if (!currentSongInfo["artist"]) return;
     setCurrentTime(0);
-    setTimeout(() => {
-      setSongLength(Math.floor(audioRef.current.duration));
-    }, 1000);
   }, [currentSongInfo]);
   return (
     <>
       <div className="fixed z-50 bottom-0 left-0 w-full bg-black/95 border-t border-gray-800 p-3 md:p-4 flex flex-col md:flex-row items-center gap-4 transition-all duration-300">
-        <audio ref={audioRef} src={currentSong} />
+        <audio
+          ref={audioRef}
+          src={currentSong}
+          onLoadedMetadata={() =>
+            setSongLength(Math.floor(audioRef.current.duration))
+          }
+        />
 
         <div
           className={`flex w-full md:w-1/3 ${isChevronUp && "md:w-3/12"}  items-center justify-between md:justify-start gap-4`}
@@ -153,8 +173,14 @@ function MusicBar() {
           className={`flex flex-col w-full md:w-1/3 items-center gap-2 ${isChevronUp && "hidden"}`}
         >
           <div className="flex items-center gap-4 md:gap-6">
-            <button className="text-gray-400 hover:text-white transition-colors">
-              <Repeat size={18} />
+            <button
+              className={`text-gray-400 hover:text-white transition-colors `}
+            >
+              <Repeat
+                size={18}
+                className={`${repeatSong && "fill-emerald-500 text-emerald-500"}`}
+                onClick={() => setRepeatSong(repeatSong => !repeatSong)}
+              />
             </button>
 
             {/* Delay 10 seconds */}
@@ -210,7 +236,6 @@ function MusicBar() {
               className="flex-1 h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-white hover:accent-emerald-500 transition-all"
               type="range"
               min="0"
-              defaultValue="0"
               max="100"
               step="1"
               //

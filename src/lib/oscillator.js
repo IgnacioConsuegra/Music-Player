@@ -16,7 +16,6 @@ export class AudioPlayer {
     this.handleSongIsFinished = handleSongIsFinished;
     this.handleSongIsPaused = handleSongIsPaused;
     this.handleTogglePlay = handleTogglePlay;
-    this.repeatSong = false;
     this.updateProgress = updateProgress;
     this.attachEvents();
     this.initializeAudio();
@@ -118,17 +117,16 @@ export class AudioPlayer {
 
     step();
   };
-  handleRepeatSong = value => {
-    if (value) {
-      this.repeatSong = true;
-    } else {
-      this.repeatSong = false;
-    }
-  };
-
+  repeatSong() {
+    this.audio.currentTime = 0;
+    this.updateProgress(0);
+    this.playAudio();
+  }
   attachEvents() {
     this.audio.addEventListener("ended", () => {
       this.handleSongIsFinished();
+      this.updateProgress(0);
+      this.playAudio();
     });
     this.audio.addEventListener("pause", () => {
       this.pauseAudio();

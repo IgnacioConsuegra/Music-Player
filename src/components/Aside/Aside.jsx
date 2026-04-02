@@ -12,14 +12,15 @@ const Aside = () => {
 
           <ul className="space-y-2 flex flex-col">
             {/* Active item */}
-            <Link to="/videos">
-              <li>
-                <AsideButton>Videos</AsideButton>
-              </li>
-            </Link>
+
             <Link to="/songs">
               <li>
                 <AsideButton>Songs</AsideButton>
+              </li>
+            </Link>
+            <Link to="/videos">
+              <li>
+                <AsideButton>Videos</AsideButton>
               </li>
             </Link>
             <Link to="/pdf">

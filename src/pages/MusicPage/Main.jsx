@@ -133,6 +133,7 @@ const Main = () => {
                   category={value.category}
                   title={value.title}
                   url={value.url}
+                  toUpdateListOfSong={thisCurrentListOfSongs}
                 />
               </ClickableButton>
             );
