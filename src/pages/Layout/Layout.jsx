@@ -7,7 +7,7 @@ export const Layout = ({ children }) => {
   return (
     <>
       <MusicBar />
-      <main className="flex flex-col-reverse md:flex-row bg-[#191818] min-h-screen">
+      <main className="flex flex-col-reverse md:flex-row bg-[#191818] min-h-screen pb-5">
         <Aside />
         <Outlet />
       </main>

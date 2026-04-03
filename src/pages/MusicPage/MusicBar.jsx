@@ -12,6 +12,7 @@ import {
 
 import { Heart, Plus, Repeat, RotateCw, RotateCcw } from "lucide-react";
 import ClickableButton from "../../components/ClickableButton.jsx";
+import { ConfigContext } from "../../context/ConfigContext.jsx";
 import { FavoritesContext } from "../../context/FavoritesContext.jsx";
 function MusicBar() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
@@ -27,11 +28,13 @@ function MusicBar() {
     repeatSong,
     setRepeatSong,
   } = useContext(MusicPlayerContext);
+  const { musicVolume, setMusicVolume } = useContext(ConfigContext);
   const { addToFavorites, listOfFavorites } = useContext(FavoritesContext);
   const [isChevronUp, setIsChevronUp] = useState(false);
   const [songLength, setSongLength] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [finishedSong, setFinishedSong] = useState(false);
+
   useEffect(() => {
     //Don't remove this if no matter what otherwise Everything it's gonna break.
     if (import.meta.env.DEV) {
@@ -65,6 +68,11 @@ function MusicBar() {
     handleSongIsPlaying(true);
   }, [currentSong]);
 
+  useEffect(() => {
+    if (musicPlayerRef.current) {
+      audioRef.current.volume = musicVolume / 100;
+    }
+  }, [musicVolume]);
   const handleTogglePlay = () => {
     musicPlayerRef.current.togglePlay();
   };

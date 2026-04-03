@@ -1,18 +1,62 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { ConfigContext } from "../context/ConfigContext.jsx";
 
 export default function IdleTimer() {
+  const {
+    reminderEnabled,
+    reminderVolume,
+    remindAfter,
+    closeAfter,
+    previewSettings,
+  } = useContext(ConfigContext);
+
+  const isPreview = !!previewSettings;
+  const activeSettings = previewSettings || {
+    reminderEnabled,
+    reminderVolume,
+    remindAfter,
+    closeAfter,
+  };
+
   const [showPrompt, setShowPrompt] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(1800);
-  const [graceLeft, setGraceLeft] = useState(120);
+  const [timeLeft, setTimeLeft] = useState(activeSettings.remindAfter * 60);
+  const [graceLeft, setGraceLeft] = useState(activeSettings.closeAfter * 60);
+
   const audioRef = useRef(new Audio("music/bell.mp3"));
 
   useEffect(() => {
-    // Volume at 20% and Enable Looping
-    audioRef.current.volume = 0.01;
+    audioRef.current.volume = activeSettings.reminderVolume / 100;
     audioRef.current.loop = true;
-  }, []);
+  }, [activeSettings.reminderVolume]);
 
   useEffect(() => {
+    if (isPreview) {
+      if (activeSettings.reminderEnabled) {
+        setShowPrompt(true);
+        setGraceLeft(activeSettings.closeAfter * 60);
+        audioRef.current.play().catch(() => {});
+      } else {
+        setShowPrompt(false);
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    } else {
+      setShowPrompt(false);
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setTimeLeft(activeSettings.remindAfter * 60);
+      setGraceLeft(activeSettings.closeAfter * 60);
+    }
+  }, [
+    isPreview,
+    activeSettings.reminderEnabled,
+    activeSettings.closeAfter,
+    activeSettings.remindAfter,
+  ]);
+
+  useEffect(() => {
+    if (!activeSettings.reminderEnabled || (isPreview && showPrompt)) return;
+
     const timer = setInterval(() => {
       if (!showPrompt) {
         setTimeLeft(prev => {
@@ -27,7 +71,11 @@ export default function IdleTimer() {
         setGraceLeft(prev => {
           if (prev <= 1) {
             clearInterval(timer);
-            handleClose();
+            if (!isPreview) {
+              handleClose();
+            } else {
+              return activeSettings.closeAfter * 60;
+            }
             return 0;
           }
           return prev - 1;
@@ -36,14 +84,19 @@ export default function IdleTimer() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [showPrompt]);
+  }, [
+    showPrompt,
+    isPreview,
+    activeSettings.reminderEnabled,
+    activeSettings.closeAfter,
+  ]);
 
   const handleReset = () => {
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
     setShowPrompt(false);
-    setTimeLeft(1800);
-    setGraceLeft(600);
+    setTimeLeft(activeSettings.remindAfter * 60);
+    setGraceLeft(activeSettings.closeAfter * 60);
   };
 
   const handleClose = () => {
@@ -54,7 +107,7 @@ export default function IdleTimer() {
     }, 500);
   };
 
-  if (!showPrompt) return null;
+  if (!showPrompt || !activeSettings.reminderEnabled) return null;
 
   return (
     <div className="fixed bottom-4 right-4 z-[9999] w-[90%] max-w-[300px] sm:w-auto">

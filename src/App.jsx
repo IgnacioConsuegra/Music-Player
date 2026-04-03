@@ -10,6 +10,8 @@ import EditorPage from "./pages/EditorPage/EditorPage.jsx";
 import ImpostorPage from "./pages/ImpostorPage/ImpostorPage.jsx";
 import Favorites from "./pages/FavoritesPage/FavoritesPage.jsx";
 import PlayListPage from "./pages/PlayListPage/PlayListPage.jsx";
+import SettingsPage from "./pages/ConfigPage/ConfigPage.jsx";
+
 const App = () => {
   const [isVerified, setIsVerified] = useState(true);
   const changeIsVerified = () => {
@@ -39,6 +41,7 @@ const App = () => {
         <Route path="/playlist" element={<PlayListPage />} />
         <Route path="/impostor" element={<ImpostorPage />} />
         <Route path="/editor" element={<EditorPage />} />
+        <Route path="/config" element={<SettingsPage />} />
       </Route>
     </Routes>
   );

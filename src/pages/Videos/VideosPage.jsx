@@ -99,15 +99,27 @@ export default function VideosPage() {
   };
 
   const markAsCompleted = (seriesId, episodeId) => {
-    const seriesCompleted = completed[seriesId] || [];
-    if (!seriesCompleted.includes(episodeId)) {
-      const newCompleted = {
-        ...completed,
-        [seriesId]: [...seriesCompleted, episodeId],
-      };
-      setCompleted(newCompleted);
-      localStorage.setItem("watchedEpisodes", JSON.stringify(newCompleted));
-    }
+    setCompleted(prev => {
+      const seriesCompleted = prev[seriesId] || [];
+      if (!seriesCompleted.includes(episodeId)) {
+        const newCompleted = {
+          ...prev,
+          [seriesId]: [...seriesCompleted, episodeId],
+        };
+        localStorage.setItem("watchedEpisodes", JSON.stringify(newCompleted));
+        return newCompleted;
+      }
+      return prev;
+    });
+
+    setProgress(prev => {
+      const newProgress = { ...prev };
+      if (newProgress[seriesId]?.episodeId === episodeId) {
+        delete newProgress[seriesId];
+        localStorage.setItem("watchProgress", JSON.stringify(newProgress));
+      }
+      return newProgress;
+    });
   };
 
   const navigateToSeries = series => {
@@ -127,7 +139,14 @@ export default function VideosPage() {
     s.title.toLowerCase().includes(search.toLowerCase()),
   );
   const categories = [...new Set(db.map(s => s.category))];
-
+  const removeProgress = seriesId => {
+    setProgress(prev => {
+      const newProgress = { ...prev };
+      delete newProgress[seriesId];
+      localStorage.setItem("watchProgress", JSON.stringify(newProgress));
+      return newProgress;
+    });
+  };
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-50 font-sans selection:bg-orange-500 selection:text-white pb-20 w-full">
       {view === "home" && (
@@ -137,8 +156,10 @@ export default function VideosPage() {
           search={search}
           setSearch={setSearch}
           progress={progress}
+          completed={completed}
           onSelectSeries={navigateToSeries}
           onSelectEpisode={navigateToPlayer}
+          onRemoveProgress={removeProgress} // <-- Add this
         />
       )}
 
@@ -177,17 +198,41 @@ function HomeView({
   search,
   setSearch,
   progress,
+  completed,
   onSelectSeries,
   onSelectEpisode,
+  onRemoveProgress,
 }) {
+  const CloseIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  );
   const continueWatching = Object.entries(progress)
     .map(([seriesId, data]) => {
+      const isCompleted = completed[seriesId]?.includes(data.episodeId);
+      if (isCompleted) return null;
+
       const series = db.find(s => s.id === seriesId);
       if (!series) return null;
+
       const episode = series.episodes.find(e => e.id === data.episodeId);
       return { series, episode, time: data.time };
     })
     .filter(Boolean);
+
+  // ... rest of the HomeView return
 
   return (
     <div className="max-w-7xl mx-auto px-4 pt-8">
@@ -212,7 +257,7 @@ function HomeView({
               <div
                 key={series.id}
                 onClick={() => onSelectEpisode(series, episode)}
-                className="cursor-pointer group"
+                className="cursor-pointer group relative"
               >
                 <div className="aspect-video bg-neutral-800 rounded-lg overflow-hidden relative">
                   <img
@@ -220,6 +265,18 @@ function HomeView({
                     alt={episode.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
+
+                  {/* NEW DELETE BUTTON */}
+                  <button
+                    onClick={e => {
+                      e.stopPropagation();
+                      onRemoveProgress(series.id);
+                    }}
+                    className="absolute top-2 right-2 p-1.5 bg-black/60 hover:bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-all z-10"
+                  >
+                    <CloseIcon />
+                  </button>
+
                   <div className="absolute bottom-2 left-2 bg-black/80 px-2 py-1 text-xs rounded text-orange-500 font-semibold">
                     {series.title}
                   </div>
@@ -235,7 +292,6 @@ function HomeView({
           </div>
         </section>
       )}
-
       {search === "" && (
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Featured</h2>

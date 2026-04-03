@@ -7,17 +7,20 @@ import MusicPlayerProvider from "./context/MusicPlayerContext.jsx";
 import FavoritesProvider from "./context/FavoritesContext.jsx";
 import PlayListProvider from "./context/PlayListContext.jsx";
 import IdleTimer from "./components/IdleTimer.jsx";
+import ConfigProvider from "./context/ConfigContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <MusicPlayerProvider>
-        <FavoritesProvider>
-          <PlayListProvider>
-            <App />
-            <IdleTimer />
-          </PlayListProvider>
-        </FavoritesProvider>
-      </MusicPlayerProvider>
+      <ConfigProvider>
+        <MusicPlayerProvider>
+          <FavoritesProvider>
+            <PlayListProvider>
+              <App />
+              <IdleTimer />
+            </PlayListProvider>
+          </FavoritesProvider>
+        </MusicPlayerProvider>
+      </ConfigProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );

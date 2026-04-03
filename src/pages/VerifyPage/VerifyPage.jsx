@@ -2,16 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Bot, Wrench, Settings, FileX } from "lucide-react";
 
 const VerifyPage = ({ passVerification }) => {
-  useEffect(() => {
-    document.title = "dzvh41ynmrqaa.cloudfront.net/";
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link) {
-      link = document.createElement("link");
-      link.rel = "icon";
-      document.head.appendChild(link);
-    }
-    link.href = "";
-  });
   const [clickCount, setClickCount] = useState(0);
   const [text, setText] = useState("");
   const handleBotClick = () => {

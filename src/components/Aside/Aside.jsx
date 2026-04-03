@@ -50,6 +50,11 @@ const Aside = () => {
                 <AsideButton>Code editor</AsideButton>
               </li>
             </Link>
+            <Link to="/config">
+              <li>
+                <AsideButton>Settings</AsideButton>
+              </li>
+            </Link>
           </ul>
         </div>
       </aside>
