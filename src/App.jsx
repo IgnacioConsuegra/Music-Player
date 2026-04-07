@@ -13,7 +13,7 @@ import PlayListPage from "./pages/PlayListPage/PlayListPage.jsx";
 import SettingsPage from "./pages/ConfigPage/ConfigPage.jsx";
 
 const App = () => {
-  const [isVerified, setIsVerified] = useState(true);
+  const [isVerified, setIsVerified] = useState(false);
   const changeIsVerified = () => {
     setIsVerified(true);
   };

@@ -612,5 +612,29 @@
     "artist": "God",
     "url": "music/theMoutainSermon.mp3",
     "category": "The truth"
+  },
+  {
+    "title": "Not meet doubt",
+    "artist": "Unknow",
+    "url": "music/notMeetDoubt.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "The erased",
+    "artist": "tlom",
+    "url": "music/theErased.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Soldier poet king",
+    "artist": "Unknow",
+    "url": "music/soldierPoetKing.mp3",
+    "category": "Energetic"
+  },
+  {
+    "title": "The fool",
+    "artist": "tlom",
+    "url": "music/theFool.mp3",
+    "category": "Soundtrack"
   }
 ]
