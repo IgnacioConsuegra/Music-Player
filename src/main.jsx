@@ -8,6 +8,7 @@ import FavoritesProvider from "./context/FavoritesContext.jsx";
 import PlayListProvider from "./context/PlayListContext.jsx";
 import IdleTimer from "./components/IdleTimer.jsx";
 import ConfigProvider from "./context/ConfigContext.jsx";
+import { Toaster } from "react-hot-toast";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -15,6 +16,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <MusicPlayerProvider>
           <FavoritesProvider>
             <PlayListProvider>
+              <div>
+                <Toaster />
+              </div>
+
               <App />
               <IdleTimer />
             </PlayListProvider>

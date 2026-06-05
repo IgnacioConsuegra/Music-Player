@@ -26,7 +26,7 @@ const PopularCategory = ({
     return str.replace(/\s+/g, "").toLowerCase();
   }
   return (
-    <section className="relative group py-8 px-4 text-white w-full ">
+    <section className="relative group p-8 pl-2 text-white w-full ">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="flex gap-2 text-xl font-bold">

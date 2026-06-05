@@ -75,7 +75,7 @@ const PlaylistCreator = ({ onClose, onSave }) => {
       <div className="relative w-[60%] h-[60%] flex flex-col bg-[#121212] text-white rounded-xl shadow-2xl p-6 border border-zinc-800">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors z-10"
+          className="absolute cursor-pointer top-4 right-4 p-2 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors z-10"
         >
           <X size={24} />
         </button>
@@ -132,7 +132,7 @@ const PlaylistCreator = ({ onClose, onSave }) => {
                   <div
                     key={index}
                     onClick={() => handleAddSong(song)}
-                    className="flex items-center justify-between p-3 hover:bg-[#3e3e3e] cursor-pointer transition-colors"
+                    className="flex  items-center justify-between p-3 hover:bg-[#3e3e3e] cursor-pointer transition-colors"
                   >
                     <div className="flex flex-col">
                       <span className="font-semibold">{song.title}</span>
@@ -170,7 +170,7 @@ const PlaylistCreator = ({ onClose, onSave }) => {
                     </div>
                     <button
                       onClick={() => handleRemoveSong(song)}
-                      className="p-2 text-zinc-500 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
+                      className="p-2 cursor-pointer text-zinc-500 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
                     >
                       <X size={18} />
                     </button>
@@ -212,7 +212,7 @@ const PlaylistCreator = ({ onClose, onSave }) => {
           <button
             onClick={handleSave}
             disabled={!playListName || playListListOfSongs.length === 0}
-            className="bg-white text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition-transform disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed"
+            className="bg-white cursor-pointer text-black font-bold py-3 px-8 rounded-full hover:scale-105 transition-transform disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed"
           >
             {isEditing ? "Update Playlist" : "Create Playlist"}
           </button>

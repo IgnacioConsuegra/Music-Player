@@ -148,7 +148,7 @@ export default function VideosPage() {
     });
   };
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-50 font-sans selection:bg-orange-500 selection:text-white pb-20 w-full">
+    <div className="min-h-screen bg-neutral-950 text-neutral-50 font-sans selection:bg-orange-500 selection:text-white pb-8 w-full">
       {view === "home" && (
         <HomeView
           db={filteredDB}
@@ -231,8 +231,6 @@ function HomeView({
       return { series, episode, time: data.time };
     })
     .filter(Boolean);
-
-  // ... rest of the HomeView return
 
   return (
     <div className="max-w-7xl mx-auto px-4 pt-8">

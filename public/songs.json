@@ -281,7 +281,6 @@
     "url": "music/pillarsOfFaith.mp3",
     "category": "Soundtrack"
   },
-
   {
     "title": "Prive",
     "artist": "Juan Luis Guerra",
@@ -306,7 +305,6 @@
     "url": "music/comoTuNoHayNinguna.mp3",
     "category": "Latin Ballad"
   },
-
   {
     "title": "Amapola",
     "artist": "Juan Luis Guerra",
@@ -636,5 +634,107 @@
     "artist": "tlom",
     "url": "music/theFool.mp3",
     "category": "Soundtrack"
+  },
+  {
+    "title": "My way",
+    "artist": "Frank Sinatra",
+    "url": "music/myWay2008.mp3",
+    "category": "Love"
+  },
+  {
+    "title": "Lemon tree",
+    "artist": "Fools Garden",
+    "url": "music/lemonTree.mp3",
+    "category": "Energetic"
+  },
+  {
+    "title": "Pueblito viejo katie",
+    "artist": "Katie",
+    "url": "music/pueblitoViejoKatie.mp3",
+    "category": "Love"
+  },
+  {
+    "title": "Pueblito viejo",
+    "artist": "Los hermanos",
+    "url": "music/pueblitoViejoLosHermanos.mp3",
+    "category": "Love"
+  },
+  {
+    "title": "My way of life",
+    "artist": "Frank Sinatra",
+    "url": "music/myWayOfLife.mp3",
+    "category": "Love"
+  },
+  {
+    "title": "My ordinary life",
+    "artist": "The Living Tombstone",
+    "url": "music/myOrdinaryLife.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Take me to church",
+    "artist": "Hozier",
+    "url": "music/takeMeToChurch.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "Beggin",
+    "artist": "Måneskin",
+    "url": "music/beggin.mp3",
+    "category": "Soundtrack"
+  },
+  {
+    "title": "The world we knew",
+    "artist": "Frank Sinatra",
+    "url": "music/theWorldWeKnew.mp3",
+    "category": "Love"
+  },
+  {
+    "title": "Cant take my eyes off you",
+    "artist": "Engelbert Humperdinck",
+    "url": "music/cantTakeMyEyesOffYou.mp3",
+    "category": "Love"
+  },
+  {
+    "title": "Tegendraads 2025",
+    "artist": "snts",
+    "url": "music/sntsTegendraads2025.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Onlynumbers 2026",
+    "artist": "Klofama b2b",
+    "url": "music/klofamab2bOnlynumbers2026.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Rock en Seine 2025",
+    "artist": "I hate models",
+    "url": "music/iHatemodels-RockenSeine2025.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Gotec Club",
+    "artist": "Yoshiko",
+    "url": "music/yoshiko-GotecClub.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Jowi",
+    "artist": "Audiodrome club",
+    "url": "music/jowi-Audiodromeclub.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "f2f Nikolina",
+    "artist": "Nicolas Julian",
+    "url": "music/nicolasJulianf2fNikolina.mp3",
+    "category": "Techno"
+  },
+  {
+    "title": "Airborne",
+    "artist": "Jazzy b2b Jowi",
+    "url": "music/jazzyb2bJowi-Airborne.mp3",
+    "category": "Techno"
   }
 ]

@@ -9,7 +9,10 @@ export default function ClickableButton({ children, className = "", onClick }) {
         active:scale-95
         ${className}
       `}
-      onClick={onClick}
+      onClick={e => {
+        if (e.target.closest("[data-ignore-click]")) return;
+        if (onClick) onClick(e);
+      }}
     >
       {children}
     </button>

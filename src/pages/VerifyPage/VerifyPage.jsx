@@ -11,7 +11,7 @@ const VerifyPage = ({ passVerification }) => {
     setText(e.target.value.toLowerCase());
   };
   useEffect(() => {
-    if (text.toLowerCase() === "cristo es rey".toLowerCase()) {
+    if (text.toLowerCase() === "Christ is king".toLowerCase()) {
       alert("Efectivamente, Cristo es rey.");
       passVerification();
     }
@@ -38,7 +38,7 @@ const VerifyPage = ({ passVerification }) => {
 
         <p className="text-[13px] text-[#5f6368] mb-10">
           DNS_PROBE_FINISHED_NXDOMAIN
-          {clickCount >= 10 && (
+          {clickCount === 7 && (
             <input type="text" className="" onChange={e => handleAddText(e)} />
           )}
         </p>

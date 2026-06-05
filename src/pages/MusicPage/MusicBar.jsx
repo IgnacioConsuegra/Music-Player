@@ -8,12 +8,15 @@ import {
   SkipBack,
   Disc3,
   ChevronsUp,
+  X,
+  Search,
 } from "lucide-react";
 
 import { Heart, Plus, Repeat, RotateCw, RotateCcw } from "lucide-react";
 import ClickableButton from "../../components/ClickableButton.jsx";
 import { ConfigContext } from "../../context/ConfigContext.jsx";
 import { FavoritesContext } from "../../context/FavoritesContext.jsx";
+import { PlayListContext } from "../../context/PlayListContext.jsx";
 function MusicBar() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const audioRef = useRef(null); // This is pointing to our audio tag, so the audio player can take actions on it.
@@ -28,12 +31,19 @@ function MusicBar() {
     repeatSong,
     setRepeatSong,
   } = useContext(MusicPlayerContext);
+  const {
+    isAddingPlayListWithNavBar,
+    setIsAddingPlayListWithNavBar,
+    playlists,
+    addToPlaylist,
+  } = useContext(PlayListContext);
   const { musicVolume, setMusicVolume } = useContext(ConfigContext);
   const { addToFavorites, listOfFavorites } = useContext(FavoritesContext);
   const [isChevronUp, setIsChevronUp] = useState(false);
   const [songLength, setSongLength] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [finishedSong, setFinishedSong] = useState(false);
+  const [isMusicBarVisible, setIsMusicBarVisible] = useState(true);
 
   useEffect(() => {
     //Don't remove this if no matter what otherwise Everything it's gonna break.
@@ -125,23 +135,72 @@ function MusicBar() {
   const handleModifyTime = seconds => {
     audioRef.current.currentTime += seconds;
   };
+  const handleAddToPlayList = () => {
+    console.log("Touching ", playlists);
+    setIsAddingPlayListWithNavBar(true);
+  };
   useEffect(() => {
     if (!currentSongInfo["artist"]) return;
     setCurrentTime(0);
   }, [currentSongInfo]);
+  const handleMusicInvisible = () => {
+    setIsMusicBarVisible(!isMusicBarVisible);
+  };
   return (
     <>
+      <audio
+        ref={audioRef}
+        src={currentSong}
+        onLoadedMetadata={() =>
+          setSongLength(Math.floor(audioRef.current.duration))
+        }
+      />
       <div
-        className={`fixed z-50 bottom-0 left-0 w-full bg-black/95 border-t border-gray-800 p-3 md:p-4 flex flex-col md:flex-row items-center gap-4 transition-all duration-300 ${!currentSong && "hidden"}`}
+        className={`  fixed z-101 bottom-0 left-0 w-full bg-black/95 border-t border-gray-800 p-3 md:p-4 flex flex-col md:flex-row  items-center gap-4 transition-all duration-300 ${!currentSong && "hidden"} ${!isMusicBarVisible && "hidden"}`}
       >
-        <audio
-          ref={audioRef}
-          src={currentSong}
-          onLoadedMetadata={() =>
-            setSongLength(Math.floor(audioRef.current.duration))
-          }
-        />
+        <div className="absolute md:relative left-0 md:pr-20">
+          {isAddingPlayListWithNavBar && playlists.length > 0 && (
+            <div className="absolute bottom-2  left-[-1rem] md:mb-4  md:bottom-8 bg-black/95 md:bg-[#121212] md:border border-gray-800 md: rounded-lg shadow-2xl z-50 flex flex-col-reverse min-w-[220px] p-2 gap-1">
+              {playlists.map((playlist, index) => {
+                const { playListName, playListListOfSongs = [] } = playlist;
+                const isSongAlreadyAdded = playListListOfSongs.some(
+                  item =>
+                    item.title === currentSongInfo.title &&
+                    item.artist === currentSongInfo.artist,
+                );
 
+                return (
+                  <div
+                    key={`${playListName}-${index}`}
+                    className={`px-3 py-2 rounded-md whitespace-nowrap transition-colors duration-200 flex items-center justify-between cursor-pointer ${
+                      isSongAlreadyAdded
+                        ? "text-gray-400 hover:bg-gray-800 hover:text-gray-200"
+                        : "text-gray-200 hover:bg-[#0b5c6b] hover:text-white"
+                    }`}
+                    onClick={() => {
+                      addToPlaylist({ playListName, song: currentSongInfo });
+                    }}
+                  >
+                    <span className="font-medium">{playListName}</span>
+
+                    {isSongAlreadyAdded && (
+                      <span className="text-[10px] uppercase tracking-wider text-gray-500 ml-4 font-bold">
+                        Already added
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+
+              <button
+                className="absolute -top-3 -right-3 bg-gray-800 border border-gray-700 rounded-full p-1 shadow-md flex items-center justify-center hover:bg-red-500 transition-colors group"
+                onClick={() => setIsAddingPlayListWithNavBar(false)}
+              >
+                <X className="w-4 h-4 text-gray-400 cursor-pointer group-hover:text-white transition-colors" />
+              </button>
+            </div>
+          )}
+        </div>
         <div
           className={`flex w-full md:w-1/3 ${isChevronUp && "md:w-3/12"}  items-center justify-between md:justify-start gap-4`}
         >
@@ -157,15 +216,20 @@ function MusicBar() {
           </div>
           <div className="flex items-center gap-4 md:ml-4">
             <button
-              className="text-gray-400 hover:text-emerald-500 transition-colors"
+              className="text-gray-400 hover:text-emerald-500 transition-colors cursor-pointer"
               onClick={() => addToFavorites(currentSongInfo)}
+              title="Mark as favorite"
             >
               <Heart
                 size={20}
                 className={`${listOfFavorites.some(value => value.url === currentSongInfo.url) && "fill-emerald-500 text-emerald-500"}`}
               />
             </button>
-            <button className="text-gray-400 hover:text-white transition-colors">
+            <button
+              className="text-gray-400 hover:text-white transition-colors cursor-pointer"
+              title="Add to playlist"
+              onClick={() => handleAddToPlayList()}
+            >
               <Plus size={20} />
             </button>
             <button
@@ -185,10 +249,11 @@ function MusicBar() {
           <div className="flex items-center gap-4 md:gap-6">
             <button
               className={`text-gray-400 hover:text-white transition-colors `}
+              title="Repeat"
             >
               <Repeat
                 size={18}
-                className={`${repeatSong && "fill-emerald-500 text-emerald-500"}`}
+                className={` cursor-pointer ${repeatSong && "fill-emerald-500 text-emerald-500"}`}
                 onClick={() => setRepeatSong(repeatSong => !repeatSong)}
               />
             </button>
@@ -197,7 +262,7 @@ function MusicBar() {
 
             <button
               onClick={() => handleModifyTime(-5)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 cursor-pointer hover:text-white transition-colors"
               title="delay 10 seconds"
             >
               <RotateCcw size={18} />
@@ -206,14 +271,16 @@ function MusicBar() {
 
             <button
               onClick={() => handleSkip(-1)}
-              className="text-gray-300 hover:text-white transition-colors"
+              className="text-gray-300 hover:text-white transition-colors cursor-pointer"
+              title="Skip Back"
             >
               <SkipBack size={24} fill="currentColor" />
             </button>
             {/* Pause button */}
             <button
               onClick={handleTogglePlay}
-              className="text-black bg-white rounded-full p-2 hover:scale-105 transition-transform"
+              className="text-black bg-white rounded-full p-2 hover:scale-105 transition-transform cursor-pointer"
+              title="Pause"
             >
               {isMusicPlaying ? (
                 <Pause size={24} fill="currentColor" />
@@ -225,7 +292,8 @@ function MusicBar() {
             {/* Next button */}
             <button
               onClick={() => handleSkip(1)}
-              className="text-gray-300 hover:text-white transition-colors"
+              className="text-gray-300 hover:text-white transition-colors cursor-pointer"
+              title="Skip Forward"
             >
               <SkipForward size={24} fill="currentColor" />
             </button>
@@ -233,7 +301,7 @@ function MusicBar() {
             {/* Fast forward 10 seconds */}
             <button
               onClick={() => handleModifyTime(5)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors cursor-pointer"
               title="fast forward 10s"
             >
               <RotateCw size={18} />
@@ -266,7 +334,8 @@ function MusicBar() {
         >
           <button
             onClick={handleChevronUp}
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-gray-400 hover:text-white transition-colors cursor-pointer"
+            title="Spectrogram"
           >
             <ChevronsUp
               size={24}
@@ -274,7 +343,22 @@ function MusicBar() {
             />
           </button>
         </div>
+        <button className="absolute bottom-2 left-2 cursor-pointer">
+          <Search
+            className="text-white/10 hover:text-white"
+            onClick={() => handleMusicInvisible()}
+          />
+        </button>
       </div>
+
+      <button
+        className={` bottom-2 left-2 cursor-pointer ${!isMusicBarVisible ? " fixed z-100" : "hidden"}`}
+      >
+        <Search
+          className="text-white/90 hover:text-white"
+          onClick={() => handleMusicInvisible()}
+        />
+      </button>
     </>
   );
 }

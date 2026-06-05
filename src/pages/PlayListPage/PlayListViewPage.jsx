@@ -46,7 +46,7 @@ const PlaylistViewPage = ({ playlistName, onBack }) => {
       <div className="max-w-5xl mx-auto">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8"
+          className="flex cursor-pointer items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8"
         >
           <ArrowLeft size={20} />
           Back to Playlists
@@ -78,7 +78,6 @@ const PlaylistViewPage = ({ playlistName, onBack }) => {
           <div className="grid grid-cols-[auto_1fr_auto] gap-4 px-6 py-3 border-b border-zinc-800 text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-4">
             <span className="w-8 text-center">#</span>
             <span>Title & Artist</span>
-            <Clock size={18} className="mr-6" />
           </div>
 
           {currentPlaylist.playListListOfSongs.length === 0 ? (
@@ -92,7 +91,7 @@ const PlaylistViewPage = ({ playlistName, onBack }) => {
               {currentPlaylist.playListListOfSongs.map((song, index) => (
                 <div
                   key={song.url + index}
-                  className={`grid grid-cols-[auto_1fr_auto] gap-4 items-center bg-[#181818] hover:bg-[#282828] ${currentSongInfo.title === song.title && "bg-[#282828]"} p-4 rounded-xl border border-transparent hover:border-zinc-700 transition-all group`}
+                  className={`grid cursor-pointer grid-cols-[auto_1fr_auto] gap-4 items-center bg-[#181818] hover:bg-[#282828] ${currentSongInfo.title === song.title && "bg-[#282828]"} p-4 rounded-xl border border-transparent hover:border-zinc-700 transition-all group`}
                   onClick={() => handleSongClick(song)}
                 >
                   <span className="w-8 text-center text-zinc-500 font-medium group-hover:text-white transition-colors">
@@ -109,8 +108,11 @@ const PlaylistViewPage = ({ playlistName, onBack }) => {
                   </div>
 
                   <button
-                    onClick={() => handleRemoveSong(song.url)}
-                    className="p-3 text-zinc-500 hover:text-red-500 hover:bg-zinc-800 rounded-lg transition-all opacity-0 group-hover:opacity-100"
+                    onClick={e => {
+                      e.stopPropagation();
+                      handleRemoveSong(song.url);
+                    }}
+                    className="p-3 text-zinc-500 cursor-pointer hover:text-red-500 hover:bg-zinc-800 rounded-lg transition-all opacity-0 group-hover:opacity-100"
                   >
                     <Trash2 size={20} />
                   </button>

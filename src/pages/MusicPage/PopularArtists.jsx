@@ -29,8 +29,7 @@ const PopularArtists = ({
   }
 
   return (
-    <section className="relative group py-8 px-4 text-white w-full ">
-      {/* Header */}
+    <section className="relative group p-8 text-white w-full pl-2 top-0 left-0 overflow-hidden">
       <div className="flex justify-between items-center mb-6">
         <h2 className="flex gap-2 text-xl font-bold">
           Popular Artist{" "}
@@ -59,7 +58,7 @@ const PopularArtists = ({
 
       <div
         ref={scrollRef}
-        className="flex flex-row overflow-x-auto gap-4 scroll-smooth no-scrollbar w-full md:overflow-x-hidden"
+        className="flex flex-row items-center gap-4 scroll-smooth no-scrollbar w-auto overflow-x-auto md:overflow-x-hidden"
       >
         {currentListOfArtist.map((artist, index) => (
           <ClickableButton key={index}>
@@ -69,18 +68,14 @@ const PopularArtists = ({
             >
               <div className="relative mb-3">
                 <ImageWithFallback
-                  src={`artistPhotos/${normalizeString(artist)}.png `}
+                  src={`artistPhotos/${normalizeString(artist)}.png`}
                   fallback={"categoryPhotos/default.png"}
                   alt={artist}
-                  className={`w-full aspect-square object-cover rounded-full border-2 
-                      ${
-                        artist === currentArtist
-                          ? "border-3 border-white"
-                          : "border-transparent"
-                      }
-  
-                    group-hover/item:border-white
-                    transition-all duration-300`}
+                  className={`w-full aspect-square object-cover rounded-full border-2 transition-all duration-300 group-hover/item:border-white ${
+                    artist === currentArtist
+                      ? "border-white"
+                      : "border-transparent"
+                  }`}
                 />
               </div>
               <p className="text-sm font-medium truncate">{artist}</p>

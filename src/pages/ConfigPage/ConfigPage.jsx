@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ConfigContext } from "../../context/ConfigContext.jsx";
-
+import { ClipboardCopy, ClipboardPaste } from "lucide-react";
+import toast from "react-hot-toast";
 export default function SettingsPage() {
   const context = useContext(ConfigContext);
 
@@ -11,7 +12,10 @@ export default function SettingsPage() {
     remindAfter: context.remindAfter,
     closeAfter: context.closeAfter,
   });
-
+  const [isExportingData, setIsExportingData] = useState(false);
+  const [isImportingData, setIsImportingData] = useState(false);
+  const [exportedData, setExportedData] = useState();
+  const [importedData, setImportedData] = useState();
   useEffect(() => {
     context.setPreviewSettings(localState);
     return () => context.setPreviewSettings(null);
@@ -30,12 +34,26 @@ export default function SettingsPage() {
   };
 
   const handleSave = () => {
-    context.setMusicVolume(localState.musicVolume);
-    context.setReminderEnabled(localState.reminderEnabled);
-    context.setReminderVolume(localState.reminderVolume);
-    context.setRemindAfter(localState.remindAfter);
-    context.setCloseAfter(localState.closeAfter);
-    context.setPreviewSettings(null);
+    try {
+      context.setMusicVolume(localState.musicVolume);
+      context.setReminderEnabled(localState.reminderEnabled);
+      context.setReminderVolume(localState.reminderVolume);
+      context.setRemindAfter(localState.remindAfter);
+      context.setCloseAfter(localState.closeAfter);
+      context.setPreviewSettings(null);
+      if (importedData) {
+        const parsedData = JSON.parse(importedData.trim());
+        parsedData.forEach(item => {
+          const key = Object.keys(item)[0];
+          const value = item[key];
+          localStorage.setItem(key, value);
+        });
+      }
+
+      toast.success("Changes saved!, reload the page");
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
   };
 
   const handleCancel = () => {
@@ -46,6 +64,41 @@ export default function SettingsPage() {
       remindAfter: context.remindAfter,
       closeAfter: context.closeAfter,
     });
+    toast.success("Changes canceled Successfully");
+  };
+  const exportData = () => {
+    setIsExportingData(!isExportingData);
+    setIsImportingData(false);
+    const storageArray = Object.entries(localStorage).map(([key, value]) => ({
+      [key]: value,
+    }));
+    setExportedData(storageArray);
+  };
+  const importData = () => {
+    setIsExportingData(false);
+    setIsImportingData(!isImportingData);
+  };
+  const handleCopy = async () => {
+    try {
+      const storageArray = Object.entries(localStorage).map(([key, value]) => ({
+        [key]: value,
+      }));
+      const textToCopy = JSON.stringify(storageArray);
+      await navigator.clipboard.writeText(textToCopy);
+      toast.success("Data copy correctly");
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+  const handlePaste = async () => {
+    try {
+      const text = (await navigator.clipboard.readText()).trim();
+
+      setImportedData(text);
+      toast.success("Data pasted correctly");
+    } catch (err) {
+      console.error("Failed to read clipboard: ", err);
+    }
   };
 
   return (
@@ -54,7 +107,63 @@ export default function SettingsPage() {
         <h1 className="text-3xl font-bold mb-8 border-b border-neutral-800 pb-4">
           Account Settings
         </h1>
+        <div className="mb-10">
+          <h2 className="text-2xl font-bold mb-6 pb-2">Page Data</h2>
+          <button
+            onClick={() => exportData()}
+            className={`px-8 py-2 rounded-lg font-bold transition-colors cursor-pointer ${
+              !isExportingData
+                ? "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
+                : "bg-orange-500 text-white border border-neutral-600"
+            }`}
+          >
+            Export Data
+          </button>{" "}
+          <button
+            onClick={() => importData()}
+            className={`px-8 py-2 rounded-lg font-bold transition-colors pb-2 cursor-pointer ${
+              !isImportingData
+                ? "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
+                : "bg-orange-500 text-white border border-neutral-600"
+            }`}
+          >
+            Import Data
+          </button>
+          {isExportingData && (
+            <div className="pt-10">
+              <h3 className="text-xl font-bold mb-6 ">Copy this below : </h3>
 
+              <div className="border border-neutral-400 relative max-w-full">
+                <ClipboardCopy
+                  className="absolute top-2 right-2 cursor-pointer"
+                  onClick={() => handleCopy()}
+                />
+                <p className="bg-neutral-800 p-4 pt-8 overflow-x-auto ">
+                  [{JSON.stringify(exportedData)}]
+                </p>
+              </div>
+            </div>
+          )}
+          {isImportingData && (
+            <div className="pt-10">
+              <h3 className="text-xl font-bold mb-6 ">
+                Paste your text here below:{" "}
+              </h3>
+
+              <div className="border border-neutral-400 relative max-w-full">
+                <ClipboardPaste
+                  className="absolute top-2 right-2 cursor-pointer"
+                  onClick={() => handlePaste()}
+                />
+                <input
+                  className="bg-neutral-800 p-4 pt-8 overflow-x-auto w-full"
+                  value={importedData}
+                  onChange={e => setImportedData(e.target.value)}
+                ></input>
+              </div>
+            </div>
+          )}
+        </div>
         <div className="mb-10">
           <label className="block text-sm font-semibold text-neutral-400 mb-4">
             Music Volume
@@ -98,7 +207,7 @@ export default function SettingsPage() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => updateLocal("reminderEnabled", true)}
-                className={`px-8 py-2 rounded-lg font-bold transition-colors ${
+                className={`px-8 py-2 rounded-lg font-bold transition-colors cursor-pointer ${
                   localState.reminderEnabled
                     ? "bg-orange-500 text-white"
                     : "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
@@ -108,7 +217,7 @@ export default function SettingsPage() {
               </button>
               <button
                 onClick={() => updateLocal("reminderEnabled", false)}
-                className={`px-8 py-2 rounded-lg font-bold transition-colors ${
+                className={`px-8 py-2 rounded-lg font-bold transition-colors cursor-pointer ${
                   !localState.reminderEnabled
                     ? "bg-neutral-700 text-white border border-neutral-600"
                     : "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
@@ -185,13 +294,13 @@ export default function SettingsPage() {
         <div className="flex justify-end gap-4 mt-8 pt-6 border-t border-neutral-800">
           <button
             onClick={handleCancel}
-            className="px-6 py-2 rounded-lg font-bold text-neutral-300 hover:bg-neutral-800 transition-colors"
+            className="px-6 py-2 cursor-pointer rounded-lg font-bold text-neutral-300 hover:bg-neutral-800 transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="px-6 py-2 rounded-lg font-bold bg-orange-500 text-white hover:bg-orange-600 transition-colors"
+            className="px-6 py-2 cursor-pointer rounded-lg font-bold bg-orange-500 text-white hover:bg-orange-600 transition-colors"
           >
             Save Changes
           </button>

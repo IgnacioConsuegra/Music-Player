@@ -76,7 +76,7 @@ const PlaylistsPage = () => {
             <h1 className="text-4xl font-bold">My Playlists</h1>
             <button
               onClick={handleCreateNew}
-              className="flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold hover:scale-105 transition-transform"
+              className="flex items-center gap-2 cursor-pointer bg-white text-black px-6 py-3 rounded-full font-bold hover:scale-105 transition-transform"
             >
               <Plus size={20} />
               Create Playlist
@@ -115,7 +115,7 @@ const PlaylistsPage = () => {
                     <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-zinc-800/50">
                       <button
                         onClick={() => handleEdit(playlist.playListName)}
-                        className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-lg transition-colors"
+                        className="p-2 cursor-pointer text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-lg transition-colors"
                       >
                         <Edit3 size={18} />
                       </button>
@@ -123,7 +123,7 @@ const PlaylistsPage = () => {
                         onClick={() =>
                           openDeleteModal(playlist.playListName, "soft")
                         }
-                        className="p-2 text-zinc-400 hover:text-red-500 hover:bg-zinc-800 rounded-lg transition-colors"
+                        className="p-2 cursor-pointer text-zinc-400 hover:text-red-500 hover:bg-zinc-800 rounded-lg transition-colors"
                       >
                         <Trash2 size={18} />
                       </button>
@@ -161,7 +161,7 @@ const PlaylistsPage = () => {
                     <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-zinc-800/50">
                       <button
                         onClick={() => recoverPlaylist(playlist.playListName)}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-green-400 hover:bg-green-400/10 rounded-lg transition-colors"
+                        className="flex cursor-pointer items-center gap-2 px-4 py-2 text-sm text-green-400 hover:bg-green-400/10 rounded-lg transition-colors"
                       >
                         <RotateCcw size={16} />
                         Recover
@@ -170,7 +170,7 @@ const PlaylistsPage = () => {
                         onClick={() =>
                           openDeleteModal(playlist.playListName, "hard")
                         }
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
+                        className="flex cursor-pointer items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
                       >
                         <AlertTriangle size={16} />
                         Delete
@@ -188,7 +188,7 @@ const PlaylistsPage = () => {
           <div className="w-full max-w-md bg-[#181818] border border-zinc-800 rounded-xl p-6 shadow-2xl relative">
             <button
               onClick={closeDeleteModal}
-              className="absolute top-4 right-4 p-2 text-zinc-400 hover:text-white transition-colors"
+              className="absolute top-4 right-4 p-2 cursor-pointer text-zinc-400 hover:text-white transition-colors"
             >
               <X size={20} />
             </button>
@@ -239,14 +239,14 @@ const PlaylistsPage = () => {
             <div className="flex justify-end gap-3">
               <button
                 onClick={closeDeleteModal}
-                className="px-5 py-2.5 rounded-lg text-zinc-300 hover:bg-zinc-800 transition-colors font-medium"
+                className="px-5 py-2.5 rounded-lg cursor-pointer text-zinc-300 hover:bg-zinc-800 transition-colors font-medium"
               >
                 Cancel
               </button>
               <button
                 onClick={handleConfirmDelete}
                 disabled={isConfirmDisabled()}
-                className="px-5 py-2.5 rounded-lg bg-red-600 text-white font-bold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-5 py-2.5 rounded-lg cursor-pointer bg-red-600 text-white font-bold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Confirm Delete
               </button>

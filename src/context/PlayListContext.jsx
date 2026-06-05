@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import PlaylistCreator from "../components/PlayListCreation.jsx";
+import toast from "react-hot-toast";
 
 export const PlayListContext = createContext();
 
@@ -8,6 +9,10 @@ export function PlayListProvider({ children }) {
   const [deletedPlaylists, setDeletedPlaylists] = useState([]);
   const [creatingPlayList, setCreatingPlayList] = useState(false);
   const [currentPlaylistName, setCurrentPlaylistName] = useState(null);
+  const [isAddingPlayListWithNavBar, setIsAddingPlayListWithNavBar] =
+    useState(false);
+  const [isAddingPlayListWithHomePage, setIsAddingPlayListWithHomePage] =
+    useState(false);
 
   useEffect(() => {
     const savedPlaylists = localStorage.getItem("myPlaylists");
@@ -64,43 +69,68 @@ export function PlayListProvider({ children }) {
     setCreatingPlayList(false);
   };
 
+  // Asegúrate de tener acceso a la variable de estado 'playlists'
+  // (la que sale de const [playlists, setPlaylists] = useState(...))
+
   const addToPlaylist = ({ playListName, song }) => {
-    setPlaylists(prevPlaylists => {
-      const existingPlaylistIndex = prevPlaylists.findIndex(
-        p => p.playListName === playListName,
+    console.log("Adding to playlist");
+    if (!playListName.length) {
+      toast.error("No playList name");
+      return;
+    }
+    if (!song.url) {
+      toast.error("No valid song added");
+      return;
+    }
+
+    // 1. Calculamos todo AFUERA del setPlaylists usando la variable actual
+    const existingPlaylistIndex = playlists.findIndex(
+      p => p.playListName === playListName,
+    );
+
+    let updatedPlaylists;
+
+    if (existingPlaylistIndex >= 0) {
+      const existingPlaylist = playlists[existingPlaylistIndex];
+      const songAlreadyExists = existingPlaylist.playListListOfSongs.some(
+        s => s.url === song.url,
       );
 
-      let updatedPlaylists;
+      if (songAlreadyExists) {
+        const updatedPlaylist = {
+          ...existingPlaylist,
+          playListListOfSongs: existingPlaylist.playListListOfSongs.filter(
+            ({ url }) => url !== song.url,
+          ),
+        };
+        updatedPlaylists = [...playlists];
+        updatedPlaylists[existingPlaylistIndex] = updatedPlaylist;
 
-      if (existingPlaylistIndex >= 0) {
-        const existingPlaylist = prevPlaylists[existingPlaylistIndex];
-        const songAlreadyExists = existingPlaylist.playListListOfSongs.some(
-          s => s.url === song.url,
-        );
-
-        if (songAlreadyExists) {
-          return prevPlaylists;
-        }
-
+        toast.success("Song removed from playList correctly");
+      } else {
         const updatedPlaylist = {
           ...existingPlaylist,
           playListListOfSongs: [...existingPlaylist.playListListOfSongs, song],
         };
 
-        updatedPlaylists = [...prevPlaylists];
+        updatedPlaylists = [...playlists];
         updatedPlaylists[existingPlaylistIndex] = updatedPlaylist;
-      } else {
-        const newPlaylist = {
-          playListName,
-          description: "",
-          playListListOfSongs: [song],
-        };
-        updatedPlaylists = [...prevPlaylists, newPlaylist];
-      }
 
-      localStorage.setItem("myPlaylists", JSON.stringify(updatedPlaylists));
-      return updatedPlaylists;
-    });
+        toast.success("Song added to playList correctly");
+      }
+    } else {
+      const newPlaylist = {
+        playListName,
+        description: "",
+        playListListOfSongs: [song],
+      };
+      updatedPlaylists = [...playlists, newPlaylist];
+      toast.success("Playlist created and song added");
+    }
+
+    localStorage.setItem("myPlaylists", JSON.stringify(updatedPlaylists));
+
+    setPlaylists(updatedPlaylists);
   };
 
   const removeFromPlaylist = ({ url, playListName }) => {
@@ -210,6 +240,10 @@ export function PlayListProvider({ children }) {
     permanentlyDeletePlaylist,
     recoverPlaylist,
     getCurrentPlaylist,
+    isAddingPlayListWithHomePage,
+    isAddingPlayListWithNavBar,
+    setIsAddingPlayListWithHomePage,
+    setIsAddingPlayListWithNavBar,
   };
 
   return (
